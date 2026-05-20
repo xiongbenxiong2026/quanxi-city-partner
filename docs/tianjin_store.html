@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全犀生态 · 天津实体店数据</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#162032;--border:#334155;--tx:#f1f5f9;--muted:#94a3b8;--b:#38bdf8;--pu:#a78bfa;--g:#34d399;--o:#fb923c;--pk:#f472b6;--y:#fbbf24;--r:#f87171;--cy:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:13px}
+.header{background:linear-gradient(135deg,#1a0f3a 0%,#0f2a4a 50%,#0a1f38 100%);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--pk),var(--o));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;flex-shrink:0}
+.title{flex:1}
+.title-main{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.city-badge{background:linear-gradient(135deg,var(--o),var(--pk));padding:2px 10px;border-radius:12px;font-size:10px;font-weight:600;color:#fff}
+.title-sub{font-size:10px;color:var(--muted)}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.hdr-avatar{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--o),var(--y));display:flex;align-items:center;justify-content:center;font-size:14px}
+.hdr-info{font-size:11px}
+.hdr-info-name{font-weight:700;font-size:12px}
+.hdr-info-role{color:var(--muted);font-size:10px}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.tag-g{background:rgba(52,211,153,0.15);color:var(--g)}.tag-b{background:rgba(56,189,248,0.15);color:var(--b)}.tag-o{background:rgba(251,146,60,0.15);color:var(--o)}.tag-r{background:rgba(248,113,113,0.15);color:var(--r)}.tag-pu{background:rgba(167,139,250,0.15);color:var(--pu)}.tag-y{background:rgba(251,191,36,0.15);color:var(--y)}.tag-cy{background:rgba(34,211,238,0.15);color:var(--cy)}.tag-pk{background:rgba(244,114,182,0.15);color:var(--pk)}
+.main{padding:16px 20px;max-width:1600px;margin:0 auto}
+.kpi-row{display:flex;gap:12px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;min-width:155px;flex:1;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.kpi.b::before{background:var(--b)}.kpi.g::before{background:var(--g)}.kpi.o::before{background:var(--o)}.kpi.pu::before{background:var(--pu)}.kpi.cy::before{background:var(--cy)}.kpi.pk::before{background:var(--pk)}.kpi.r::before{background:var(--r)}.kpi.y::before{background:var(--y)}
+.kpi-num{font-size:22px;font-weight:900;line-height:1}
+.kpi-label{font-size:10px;color:var(--muted);margin-top:3px}
+.kpi-sub{font-size:10px;margin-top:4px}
+.kpi-sub.up{color:var(--g)}.kpi-sub.down{color:var(--r)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.sec-hd{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sec-icon{font-size:17px}
+.sec-title{font-size:13px;font-weight:700;flex:1}
+.sec-body{padding:16px 18px}
+.ind-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.ind-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;position:relative;overflow:hidden;transition:all 0.2s}
+.ind-card:hover{border-color:var(--pk);background:rgba(244,114,182,0.04)}
+.ind-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:100%}
+.ind-card.餐饮::before{background:#f97316}.ind-card.美容美甲::before{background:#ec4899}.ind-card.超市便利::before{background:#22c55e}.ind-card.休闲娱乐::before{background:#8b5cf6}.ind-card.教育培训::before{background:#3b82f6}.ind-card.医疗健康::before{background:#ef4444}.ind-card.汽车服务::before{background:#6366f1}.ind-card.家居建材::before{background:#d97706}.ind-card.母婴亲子::before{background:#f59e0b}.ind-card.服装鞋帽::before{background:#14b8a6}.ind-card.水果生鲜::before{background:#84cc16}.ind-card.其他::before{background:#94a3b8}
+.ind-icon{font-size:22px;margin-bottom:6px}
+.ind-name{font-size:12px;font-weight:700;margin-bottom:8px}
+.ind-bar{height:4px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.ind-bar-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.ind-stat{display:flex;justify-content:space-between;align-items:center}
+.ind-stat-label{font-size:10px;color:var(--muted)}
+.ind-stat-val{font-size:11px;font-weight:700}
+.ind-tags{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap}
+.badge{display:inline-block;padding:1px 7px;border-radius:6px;font-size:9.5px;font-weight:700}
+.b-g{background:rgba(52,211,153,0.15);color:var(--g)}.b-b{background:rgba(56,189,248,0.15);color:var(--b)}.b-o{background:rgba(251,146,60,0.15);color:var(--o)}.b-y{background:rgba(251,191,36,0.15);color:var(--y)}.b-r{background:rgba(248,113,113,0.15);color:var(--r)}.b-pu{background:rgba(167,139,250,0.15);color:var(--pu)}.b-cy{background:rgba(34,211,238,0.15);color:var(--cy)}.b-pk{background:rgba(244,114,182,0.15);color:var(--pk)}.b-m{background:rgba(148,163,184,0.15);color:var(--muted)}
+.chart-area{display:flex;align-items:flex-end;gap:8px;height:110px;padding:0 4px}
+.chart-bar{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1}
+.chart-bar-fill{width:100%;border-radius:4px 4px 0 0;min-height:4px}
+.chart-bar-label{font-size:8px;color:var(--muted);white-space:nowrap;transform:rotate(-45deg);transform-origin:top left;margin-top:4px}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+thead th{text-align:left;padding:9px 12px;color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap}
+tbody td{padding:9px 12px;border-bottom:1px solid rgba(51,65,85,0.3);white-space:nowrap}
+tbody tr:hover td{background:rgba(244,114,182,0.03)}
+.store-status{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.store-status.online{background:var(--g);box-shadow:0 0 4px var(--g)}
+.store-status.new{background:var(--b)}
+.store-status.warning{background:var(--y)}
+.store-status.inactive{background:var(--muted)}
+.progress-s{height:4px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;width:60px;display:inline-block;vertical-align:middle}
+.progress-s-fill{height:100%;border-radius:3px}
+.filter-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.filter-bar label{font-size:11px;color:var(--muted)}
+select{background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:6px 10px;color:var(--tx);font-size:12px;outline:none;cursor:pointer}
+select:focus{border-color:var(--pk)}
+input{background:var(--card2);border:1px solid var(--border);border-radius:7px;padding:6px 10px;color:var(--tx);font-size:12px;outline:none;width:160px}
+input:focus{border-color:var(--pk)}
+.btn{background:rgba(244,114,182,0.12);border:1px solid rgba(244,114,182,0.3);color:var(--pk);padding:6px 12px;border-radius:7px;font-size:12px;cursor:pointer;font-weight:600;white-space:nowrap}
+.btn-pri{background:linear-gradient(135deg,var(--pk),var(--o));border:none;color:#fff}
+.col-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.col-2{grid-template-columns:1fr}}
+@media(max-width:600px){.ind-grid{grid-template-columns:repeat(2,1fr)}}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail-item{padding:10px 14px;background:rgba(255,255,255,0.02);border-radius:8px}
+.detail-label{font-size:10px;color:var(--muted)}
+.detail-val{font-size:13px;font-weight:700;margin-top:2px}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">全</div>
+  <div class="title">
+    <div class="title-main">全犀生态 · 天津实体店数据 <span class="city-badge">🏙️ 天津市</span></div>
+    <div class="title-sub">城市合伙人：岁月新剧场 · 独家授权区域代理 · 协议至 2027-04-28</div>
+  </div>
+  <div class="hdr-right">
+    <span class="tag tag-g" style="font-size:11px">● 运营正常</span>
+    <span class="tag tag-o" style="font-size:11px">Q2达标</span>
+    <div class="hdr-avatar">🎭</div>
+    <div class="hdr-info">
+      <div class="hdr-info-name">岁月新剧场</div>
+      <div class="hdr-info-role">天津市城市合伙人</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 天津KPI总览 -->
+<div class="kpi-row">
+  <div class="kpi pk"><div class="kpi-num" style="color:var(--pk)">286</div><div class="kpi-label">天津入驻门店</div><div class="kpi-sub up">▲ 本月新增 38家</div></div>
+  <div class="kpi g"><div class="kpi-num" style="color:var(--g)">18.9万</div><div class="kpi-label">天津私域人数</div><div class="kpi-sub up">▲ +2.8万</div></div>
+  <div class="kpi o"><div class="kpi-num" style="color:var(--o)">892万</div><div class="kpi-label">天津累计GMV</div><div class="kpi-sub up">▲ 本月 +128万</div></div>
+  <div class="kpi b"><div class="kpi-num" style="color:var(--b)">71.2%</div><div class="kpi-label">平均核销率</div><div class="kpi-sub up">▲ +4.1%</div></div>
+  <div class="kpi y"><div class="kpi-num" style="color:var(--y)">8</div><div class="kpi-label">覆盖区县</div><div class="kpi-sub">和平/河西/南开/河东/河北/红桥/津南/塘沽</div></div>
+  <div class="kpu"><div class="kpi-num" style="color:var(--pu)">¥4,260</div><div class="kpi-label">人均消费</div><div class="kpi-sub up">▲ +¥380</div></div>
+</div>
+
+<!-- 城市合伙人信息 -->
+<div class="section">
+  <div class="sec-hd">
+    <span class="sec-icon">🎭</span>
+    <span class="sec-title">城市合伙人 · 岁月新剧场</span>
+    <span class="tag tag-pk">核心合作商</span>
+  </div>
+  <div class="sec-body">
+    <div class="col-2">
+      <div>
+        <div class="detail-grid">
+          <div class="detail-item"><div class="detail-label">合伙人名称</div><div class="detail-val" style="color:var(--o)">岁月新剧场</div></div>
+          <div class="detail-item"><div class="detail-label">授权区域</div><div class="detail-val">天津市全域（独家）</div></div>
+          <div class="detail-item"><div class="detail-label">协议有效期</div><div class="detail-val">2027-04-28</div></div>
+          <div class="detail-item"><div class="detail-label">入驻时间</div><div class="detail-val">2026-04-28</div></div>
+          <div class="detail-item"><div class="detail-label">管理门店数</div><div class="detail-val" style="color:var(--pk)">286家</div></div>
+          <div class="detail-item"><div class="detail-label">品牌入驻数</div><div class="detail-val" style="color:var(--b)">42个品牌</div></div>
+          <div class="detail-item"><div class="detail-label">分润收入（累计）</div><div class="detail-val" style="color:var(--g)">¥34.8万</div></div>
+          <div class="detail-item"><div class="detail-label">Q2考核状态</div><div class="detail-val"><span class="badge b-g">✅ 达标</span></div></div>
+        </div>
+      </div>
+      <div style="padding:16px;background:rgba(0,0,0,0.2);border-radius:10px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px;color:var(--o)">📊 合伙人月度数据趋势</div>
+        <div class="chart-area" style="height:80px">
+          <div class="chart-bar"><div class="chart-bar-fill" style="height:35%;background:var(--muted)"></div><span class="chart-bar-label">1月</span></div>
+          <div class="chart-bar"><div class="chart-bar-fill" style="height:48%;background:var(--muted)"></div><span class="chart-bar-label">2月</span></div>
+          <div class="chart-bar"><div class="chart-bar-fill" style="height:62%;background:var(--muted)"></div><span class="chart-bar-label">3月</span></div>
+          <div class="chart-bar"><div class="chart-bar-fill" style="height:78%;background:var(--y)"></div><span class="chart-bar-label">4月</span></div>
+          <div class="chart-bar"><div class="chart-bar-fill" style="height:92%;background:var(--o)"></div><span class="chart-bar-label">5月</span></div>
+        </div>
+        <div style="margin-top:12px;font-size:11px;color:var(--muted)">门店数增长：1月168 → 2月198 → 3月224 → 4月248 → 5月286</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 天津各行业门店 -->
+<div class="section">
+  <div class="sec-hd">
+    <span class="sec-icon">📊</span>
+    <span class="sec-title">天津各行业门店 & 私域人数</span>
+    <span class="tag tag-pk">共286家</span>
+  </div>
+  <div class="sec-body">
+    <div class="ind-grid">
+
+      <div class="ind-card 餐饮">
+        <div class="ind-icon">🍜</div>
+        <div class="ind-name">餐饮业</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#f97316;font-size:14px">98家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:100%;background:#f97316"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">8.9万人</span></div>
+        <div class="ind-tags"><span class="badge b-o">占比34%</span><span class="badge b-g">月GMV 36.8万</span></div>
+      </div>
+
+      <div class="ind-card 美容美甲">
+        <div class="ind-icon">💅</div>
+        <div class="ind-name">美容美甲</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#ec4899;font-size:14px">48家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:49%;background:#ec4899"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">4.2万人</span></div>
+        <div class="ind-tags"><span class="badge b-pk">占比17%</span><span class="badge b-g">月GMV 18.4万</span></div>
+      </div>
+
+      <div class="ind-card 超市便利">
+        <div class="ind-icon">🏪</div>
+        <div class="ind-name">超市便利</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#22c55e;font-size:14px">42家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:43%;background:#22c55e"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">3.1万人</span></div>
+        <div class="ind-tags"><span class="badge b-g">占比15%</span><span class="badge b-g">月GMV 28.9万</span></div>
+      </div>
+
+      <div class="ind-card 休闲娱乐">
+        <div class="ind-icon">🎮</div>
+        <div class="ind-name">休闲娱乐</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#8b5cf6;font-size:14px">32家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:33%;background:#8b5cf6"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">1.8万人</span></div>
+        <div class="ind-tags"><span class="badge b-pu">占比11%</span><span class="badge b-g">月GMV 12.4万</span></div>
+      </div>
+
+      <div class="ind-card 教育培训">
+        <div class="ind-icon">📚</div>
+        <div class="ind-name">教育培训</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#3b82f6;font-size:14px">24家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:25%;background:#3b82f6"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">1.6万人</span></div>
+        <div class="ind-tags"><span class="badge b-b">占比8%</span><span class="badge b-g">月GMV 9.8万</span></div>
+      </div>
+
+      <div class="ind-card 医疗健康">
+        <div class="ind-icon">🏥</div>
+        <div class="ind-name">医疗健康</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#ef4444;font-size:14px">14家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:14%;background:#ef4444"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.9万人</span></div>
+        <div class="ind-tags"><span class="badge b-r">占比5%</span><span class="badge b-g">月GMV 5.6万</span></div>
+      </div>
+
+      <div class="ind-card 汽车服务">
+        <div class="ind-icon">🚗</div>
+        <div class="ind-name">汽车服务</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#6366f1;font-size:14px">12家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:12%;background:#6366f1"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.8万人</span></div>
+        <div class="ind-tags"><span class="badge b-pu">占比4%</span><span class="badge b-g">月GMV 6.2万</span></div>
+      </div>
+
+      <div class="ind-card 家居建材">
+        <div class="ind-icon">🏠</div>
+        <div class="ind-name">家居建材</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#d97706;font-size:14px">10家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:10%;background:#d97706"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.6万人</span></div>
+        <div class="ind-tags"><span class="badge b-o">占比4%</span><span class="badge b-g">月GMV 8.9万</span></div>
+      </div>
+
+      <div class="ind-card 母婴亲子">
+        <div class="ind-icon">👶</div>
+        <div class="ind-name">母婴亲子</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#f59e0b;font-size:14px">9家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:9%;background:#f59e0b"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.5万人</span></div>
+        <div class="ind-tags"><span class="badge b-y">占比3%</span><span class="badge b-g">月GMV 5.2万</span></div>
+      </div>
+
+      <div class="ind-card 服装鞋帽">
+        <div class="ind-icon">👗</div>
+        <div class="ind-name">服装鞋帽</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#14b8a6;font-size:14px">5家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:5%;background:#14b8a6"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.4万人</span></div>
+        <div class="ind-tags"><span class="badge b-cy">占比2%</span><span class="badge b-g">月GMV 4.8万</span></div>
+      </div>
+
+      <div class="ind-card 水果生鲜">
+        <div class="ind-icon">🍎</div>
+        <div class="ind-name">水果生鲜</div>
+        <div class="ind-stat"><span class="ind-stat-label">入驻门店</span><span class="ind-stat-val" style="color:#84cc16;font-size:14px">4家</span></div>
+        <div class="ind-bar"><div class="ind-bar-fill" style="width:4%;background:#84cc16"></div></div>
+        <div class="ind-stat"><span class="ind-stat-label">私域人数</span><span class="ind-stat-val">0.3万人</span></div>
+        <div class="ind-tags"><span class="badge b-g">占比1%</span><span class="badge b-g">月GMV 3.6万</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 天津私域人数排行 -->
+<div class="section">
+  <div class="sec-hd">
+    <span class="sec-icon">👥</span>
+    <span class="sec-title">天津各行业私域人数排行</span>
+  </div>
+  <div class="sec-body">
+    <div class="chart-area">
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:100%;background:#f97316"></div><span class="chart-bar-label">餐饮8.9万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:47%;background:#ec4899"></div><span class="chart-bar-label">美容4.2万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:35%;background:#22c55e"></div><span class="chart-bar-label">超市3.1万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:20%;background:#8b5cf6"></div><span class="chart-bar-label">休闲1.8万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:18%;background:#3b82f6"></div><span class="chart-bar-label">教育1.6万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:10%;background:#ef4444"></div><span class="chart-bar-label">医疗0.9万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:9%;background:#6366f1"></div><span class="chart-bar-label">汽车0.8万</span></div>
+      <div class="chart-bar"><div class="chart-bar-fill" style="height:7%;background:#d97706"></div><span class="chart-bar-label">家居0.6万</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- 天津门店明细 -->
+<div class="section">
+  <div class="sec-hd">
+    <span class="sec-icon">🏪</span>
+    <span class="sec-title">天津门店明细</span>
+    <span class="tag tag-pk">共286家</span>
+  </div>
+  <div class="sec-body">
+    <div class="filter-bar">
+      <label>行业：</label>
+      <select id="filter-ind"><option value="">全部行业</option><option>餐饮</option><option>美容美甲</option><option>超市便利</option><option>休闲娱乐</option><option>教育培训</option><option>医疗健康</option><option>汽车服务</option><option>家居建材</option><option>母婴亲子</option><option>服装鞋帽</option><option>水果生鲜</option></select>
+      <label>区县：</label>
+      <select id="filter-area"><option value="">全部区县</option><option>和平</option><option>河西</option><option>南开</option><option>河东</option><option>河北</option><option>红桥</option><option>津南</option><option>塘沽</option></select>
+      <label>状态：</label>
+      <select id="filter-status"><option value="">全部状态</option><option>正常运营</option><option>新增入驻</option><option>数据异常</option><option>已停业</option></select>
+      <input type="text" id="search-name" placeholder="搜索门店名称...">
+      <button class="btn btn-pri" onclick="applyFilter()">🔍 筛选</button>
+      <button class="btn" onclick="resetFilter()">重置</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>门店名称</th>
+            <th>行业</th>
+            <th>区县</th>
+            <th>入驻时间</th>
+            <th>状态</th>
+            <th>私域粉丝</th>
+            <th>平台消费(累计)</th>
+            <th>本月GMV</th>
+            <th>核销率</th>
+            <th>等级</th>
+          </tr>
+        </thead>
+        <tbody id="store-tbody"></tbody>
+      </table>
+    </div>
+    <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
+      <div style="font-size:11px;color:var(--muted)">显示 <b style="color:var(--tx)" id="show-count">30</b> 条，共 <b style="color:var(--tx)" id="total-count">286</b> 条</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn" style="padding:5px 10px">← 上一页</button>
+        <button class="btn" style="padding:5px 10px">1</button>
+        <button class="btn" style="padding:5px 10px">2</button>
+        <button class="btn" style="padding:5px 10px">3</button>
+        <button class="btn" style="padding:5px 10px">...</button>
+        <button class="btn" style="padding:5px 10px">10</button>
+        <button class="btn" style="padding:5px 10px">下一页 →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 天津TOP门店排行 -->
+<div class="section">
+  <div class="sec-hd">
+    <span class="sec-icon">🏆</span>
+    <span class="sec-title">天津TOP门店排行（按私域粉丝数）</span>
+    <span class="tag tag-o">TOP 10</span>
+  </div>
+  <div class="sec-body">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>排名</th><th>门店名称</th><th>行业</th><th>私域粉丝</th><th>平台消费</th><th>本月GMV</th><th>核销率</th></tr></thead>
+        <tbody id="top-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 底部 -->
+<div style="text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:10px">
+  <p>© 2026 全犀生态 · 天津实体店数据看板 · 城市合伙人：岁月新剧场</p>
+  <p style="margin-top:4px">数据说明：平台消费金额为消费者在门店通过全犀平台的累计支付总额</p>
+</div>
+
+</div>
+
+<script>
+const stores = [
+  ["海底捞火锅·南开","餐饮","南开","2025-06-18","正常运营",6231,234100,68200,0.79,"S"],
+  ["华润万家·津湾店","超市便利","河西","2025-05-22","正常运营",4123,198700,38400,0.93,"S"],
+  ["星轶影城天津店","休闲娱乐","河西","2025-10-15","正常运营",5672,89300,41200,0.58,"A"],
+  ["南开大学旁小馆","餐饮","南开","2025-04-18","正常运营",3456,123400,28900,0.83,"S"],
+  ["便利蜂·南京路店","超市便利","和平","2025-07-20","正常运营",2104,142300,24600,0.91,"S"],
+  ["新东方天津学校","教育培训","河西","2025-07-05","正常运营",4567,134200,28600,0.78,"S"],
+  ["老城厢煎饼王","餐饮","和平","2025-08-12","正常运营",4823,186420,32800,0.76,"S"],
+  ["闺蜜美甲工作室","美容美甲","河西","2025-09-03","正常运营",3261,98400,18200,0.82,"A"],
+  ["克丽缇娜美容会所","美容美甲","南开","2025-07-10","正常运营",2876,112400,24600,0.77,"A"],
+  ["711便利店·小白楼","超市便利","和平","2025-03-12","正常运营",1892,234600,41200,0.95,"S"],
+  ["乐友母婴·南开店","母婴亲子","南开","2025-08-25","正常运营",2341,78400,22100,0.88,"A"],
+  ["百果园·和平路店","水果生鲜","和平","2026-01-30","正常运营",1456,56700,13400,0.84,"A"],
+  ["泰达国际心血管","医疗健康","塘沽","2025-12-20","正常运营",2341,189400,42800,0.72,"S"],
+  ["宜家天津商场","家居建材","津南","2025-11-15","正常运营",2890,245600,56200,0.63,"S"],
+  ["河西区口腔诊所","医疗健康","河西","2026-01-14","新增入驻",892,23400,8600,0.65,"B"],
+  ["途虎养车·河西店","汽车服务","河西","2025-12-01","正常运营",1234,56700,19300,0.73,"A"],
+  ["优胜教育和平校区","教育培训","和平","2025-11-08","正常运营",1892,67800,12400,0.71,"B"],
+  ["红星美凯龙·天津店","家居建材","河西","2026-02-20","新增入驻",567,31200,15800,0.42,"B"],
+  ["优衣库天津恒隆店","服装鞋帽","和平","2026-03-01","新增入驻",782,45600,19800,0.69,"B"],
+  ["台球咖·河东店","休闲娱乐","河东","2026-02-08","新增入驻",634,23400,8900,0.62,"C"],
+  ["丝域养发馆天津店","美容美甲","和平","2025-06-30","正常运营",2187,89400,16700,0.75,"A"],
+  ["天津和睦家医院","医疗健康","河西","2025-10-20","正常运营",1876,145600,32000,0.68,"S"],
+  ["中石化易捷·津南站","汽车服务","津南","2025-08-05","正常运营",923,78200,15600,0.81,"A"],
+  ["居然之家·西青店","家居建材","河西","2026-01-10","正常运营",1123,67800,28900,0.51,"A"],
+  ["宝贝在线·塘沽店","母婴亲子","塘沽","2025-11-22","正常运营",1876,89200,18200,0.86,"A"],
+  ["海澜之家天津总店","服装鞋帽","和平","2025-12-15","正常运营",1456,67800,23400,0.72,"B"],
+  ["鲜丰水果·红桥店","水果生鲜","红桥","2025-10-05","正常运营",1234,45600,11200,0.87,"B"],
+  ["小拇指汽修连锁","汽车服务","河东","2026-01-05","正常运营",876,45600,12300,0.77,"B"],
+  ["麦颂KTV·河西店","休闲娱乐","河西","2025-09-28","数据异常",782,34500,12400,0.31,"C"],
+  ["鸭血粉丝汤·河北店","餐饮","河北","2026-03-15","新增入驻",567,18900,6800,0.58,"C"],
+  ["天津烧饼铺","餐饮","红桥","2025-09-12","正常运营",1234,56200,13400,0.72,"B"],
+  ["狗不理包子总店","餐饮","和平","2025-06-05","正常运营",5678,267800,72400,0.86,"S"],
+  ["天津大麻花旗舰店","餐饮","南开","2025-08-08","正常运营",2345,112300,25600,0.78,"A"],
+  ["桂发祥十八街麻花","餐饮","河西","2025-07-15","正常运营",1890,89100,19200,0.74,"A"],
+  ["煎饼果子·南开店","餐饮","南开","2025-04-25","正常运营",3890,145600,32800,0.82,"S"],
+  ["铜锅涮肉·河东店","餐饮","河东","2025-10-10","正常运营",1678,78900,18200,0.76,"A"],
+  ["煎饼大侠·河西店","餐饮","河西","2026-02-18","新增入驻",823,34500,9800,0.64,"B"],
+  ["津门包子铺","餐饮","河北","2025-11-05","正常运营",1234,56700,14200,0.71,"B"],
+  ["砂锅居·红桥店","餐饮","红桥","2025-12-20","正常运营",987,45600,11400,0.69,"B"],
+  ["锅贴王·塘沽店","餐饮","塘沽","2026-01-25","新增入驻",756,28900,8600,0.62,"C"],
+  ["川味火锅·津南店","餐饮","津南","2026-03-10","新增入驻",456,17800,5200,0.56,"C"],
+  ["花艺美甲·和平店","美容美甲","和平","2026-02-25","新增入驻",567,23400,7800,0.68,"B"],
+  ["瑜伽生活馆·南开店","美容美甲","南开","2025-08-18","正常运营",1456,67800,15600,0.73,"B"],
+  ["日式美甲沙龙","美容美甲","河西","2026-03-20","新增入驻",423,18900,6200,0.65,"C"],
+  ["悦诗风吟美容","美容美甲","河东","2025-10-15","正常运营",876,45600,10800,0.71,"B"],
+  ["艾灸养生馆·红桥店","美容美甲","红桥","2025-11-28","正常运营",634,31200,8400,0.67,"B"],
+  ["永辉超市·河西店","超市便利","河西","2025-04-10","正常运营",3890,189200,41200,0.92,"S"],
+  ["物美超市·南开店","超市便利","南开","2025-06-15","正常运营",2876,167800,36800,0.89,"A"],
+  ["家乐福·河北店","超市便利","河北","2025-08-20","正常运营",1890,134500,28600,0.84,"A"],
+  ["大润发·塘沽店","超市便利","塘沽","2025-09-25","正常运营",1456,112300,24800,0.87,"A"],
+  ["美廉美超市·河东店","超市便利","河东","2025-11-10","正常运营",1234,89100,19200,0.81,"B"],
+  ["乐购超市·津南店","超市便利","津南","2026-01-08","新增入驻",678,45600,10800,0.78,"B"],
+  ["罗森便利店·和平店","超市便利","和平","2026-02-28","新增入驻",456,23400,6800,0.82,"B"],
+  ["全家便利店·南开店","超市便利","南开","2026-03-05","新增入驻",345,18900,5600,0.79,"C"],
+  ["KTV星光·和平店","休闲娱乐","和平","2025-07-18","正常运营",1890,67800,16800,0.63,"A"],
+  ["桌球吧·南开店","休闲娱乐","南开","2025-09-05","正常运营",1234,45600,11200,0.58,"B"],
+  ["密室逃脱·河西店","休闲娱乐","河西","2026-01-20","新增入驻",567,23400,8600,0.54,"C"],
+  ["VR体验馆·河东店","休闲娱乐","河东","2026-02-12","新增入驻",423,18900,7200,0.48,"C"],
+  ["天津大剧院","休闲娱乐","河西","2025-10-08","正常运营",2345,89600,21400,0.56,"A"],
+];
+
+function fmtMoney(v){return v>=10000?(v/10000).toFixed(1)+'万':'¥'+v.toLocaleString()}
+function fmtFans(v){return v>=10000?(v/10000).toFixed(1)+'万':v.toLocaleString()}
+function levelBadge(l){const m={'S':'b-g','A':'b-b','B':'b-y','C':'b-m'};return '<span class="badge '+m[l]+'">'+l+'级</span>'}
+function statusIcon(s){const m={'正常运营':'online',新增入驻:'new',数据异常:'warning',已停业:'inactive'};return '<span class="store-status '+m[s]+'"></span>'+s}
+function rateBar(r){const c=r>=0.8?'var(--g)':r>=0.5?'var(--y)':'var(--r)';return '<div class="progress-s"><div class="progress-s-fill" style="width:'+Math.round(r*100)+'%;background:'+c+'"></div></div> '+Math.round(r*100)+'%'}
+
+function renderTable(data){
+  const tbody=document.getElementById('store-tbody');
+  tbody.innerHTML='';
+  data.forEach(function(s){
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+s[0]+'</b></td><td><span class="badge b-m">'+s[1]+'</span></td><td>'+s[2]+'</td><td>'+s[3]+'</td><td>'+statusIcon(s[4])+'</td><td style="text-align:right;color:var(--pk)">'+fmtFans(s[5])+'</td><td style="text-align:right">'+fmtMoney(s[6])+'</td><td style="text-align:right;color:var(--g)">'+fmtMoney(s[7])+'</td><td>'+rateBar(s[8])+'</td><td>'+levelBadge(s[9])+'</td>';
+    tbody.appendChild(tr);
+  });
+  document.getElementById('show-count').textContent=Math.min(30,data.length);
+  document.getElementById('total-count').textContent=data.length;
+}
+
+function renderTop(){
+  const sorted=[...stores].sort(function(a,b){return b[5]-a[5]}).slice(0,10);
+  const tbody=document.getElementById('top-tbody');
+  tbody.innerHTML='';
+  sorted.forEach(function(s,i){
+    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1);
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+medal+'</b></td><td><b>'+s[0]+'</b></td><td>'+s[1]+'</td><td style="color:var(--pk);font-weight:700">'+fmtFans(s[5])+'</td><td style="text-align:right">'+fmtMoney(s[6])+'</td><td style="text-align:right;color:var(--g)">'+fmtMoney(s[7])+'</td><td>'+rateBar(s[8])+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function applyFilter(){
+  const ind=document.getElementById('filter-ind').value;
+  const area=document.getElementById('filter-area').value;
+  const status=document.getElementById('filter-status').value;
+  const name=document.getElementById('search-name').value.trim().toLowerCase();
+  const filtered=stores.filter(function(s){
+    if(ind&&s[1]!==ind)return false;
+    if(area&&s[2]!==area)return false;
+    if(status&&s[4]!==status)return false;
+    if(name&&s[0].toLowerCase().indexOf(name)===-1)return false;
+    return true;
+  });
+  renderTable(filtered.slice(0,30));
+}
+
+function resetFilter(){
+  document.getElementById('filter-ind').value='';
+  document.getElementById('filter-area').value='';
+  document.getElementById('filter-status').value='';
+  document.getElementById('search-name').value='';
+  renderTable(stores.slice(0,30));
+}
+
+renderTable(stores.slice(0,30));
+renderTop();
+</script>
+
+</body>
+</html>
