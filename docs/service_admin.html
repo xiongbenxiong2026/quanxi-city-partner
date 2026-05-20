@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全犀生态 · 服务商数据后台</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--card2:#162032;--border:#334155;--tx:#f1f5f9;--muted:#94a3b8;--b:#38bdf8;--pu:#a78bfa;--g:#34d399;--o:#fb923c;--pk:#f472b6;--y:#fbbf24;--r:#f87171;--cy:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;font-size:13px}
+.header{background:linear-gradient(135deg,#1a0f3a 0%,#0f2a4a 50%,#0a1f38 100%);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--pk),var(--o));border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;flex-shrink:0}
+.title{flex:1}
+.title-main{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.user-badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.badge-super{background:linear-gradient(135deg,var(--o),var(--pk));color:#fff}
+.badge-normal{background:rgba(148,163,184,0.15);color:var(--muted)}
+.title-sub{font-size:10px;color:var(--muted)}
+.hdr-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.btn{background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:var(--b);padding:5px 12px;border-radius:7px;font-size:11px;cursor:pointer;font-weight:600;white-space:nowrap}
+.btn-pri{background:linear-gradient(135deg,var(--pk),var(--o));border:none;color:#fff}
+.btn-sm{padding:3px 8px;font-size:10px}
+.main{padding:16px 20px;max-width:1600px;margin:0 auto}
+/* 权限切换提示 */
+.pern-bar{background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.2);border-radius:10px;padding:10px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pern-bar label{font-size:11px;color:var(--muted)}
+.pern-bar select{background:var(--card2);border:1px solid var(--border);border-radius:6px;padding:4px 8px;color:var(--tx);font-size:12px;cursor:pointer}
+/* KPI */
+.kpi-row{display:flex;gap:12px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 15px;min-width:150px;flex:1;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:2.5px}
+.kpi.b::before{background:var(--b)}.kpi.g::before{background:var(--g)}.kpi.o::before{background:var(--o)}.kpi.pu::before{background:var(--pu)}.kpi.cy::before{background:var(--cy)}.kpi.pk::before{background:var(--pk)}.kpi.y::before{background:var(--y)}.kpi.r::before{background:var(--r)}
+.kpi-num{font-size:21px;font-weight:900;line-height:1}
+.kpi-label{font-size:10px;color:var(--muted);margin-top:3px}
+.kpi-sub{font-size:10px;margin-top:3px}
+.kpi-sub.up{color:var(--g)}.kpi-sub.down{color:var(--r)}
+/* Section */
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;overflow:hidden}
+.sec-hd{padding:11px 17px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sec-icon{font-size:16px}
+.sec-title{font-size:13px;font-weight:700;flex:1}
+.sec-body{padding:15px 17px}
+/* 表格 */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:900px}
+thead th{text-align:left;padding:8px 11px;color:var(--muted);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.4px;border-bottom:1px solid var(--border);background:var(--bg);white-space:nowrap;cursor:pointer}
+thead th:hover{color:var(--b)}
+tbody td{padding:8px 11px;border-bottom:1px solid rgba(51,65,85,0.3);vertical-align:middle;white-space:nowrap}
+tbody tr:hover td{background:rgba(244,114,182,0.03)}
+.td-name{font-weight:700;font-size:12.5px}
+.td-sub{font-size:10px;color:var(--muted)}
+.td-r{text-align:right}.td-c{text-align:center}
+.tag{display:inline-block;padding:2px 7px;border-radius:7px;font-size:9.5px;font-weight:600}
+.tag-g{background:rgba(52,211,153,0.15);color:var(--g)}.tag-b{background:rgba(56,189,248,0.15);color:var(--b)}.tag-o{background:rgba(251,146,60,0.15);color:var(--o)}.tag-r{background:rgba(248,113,113,0.15);color:var(--r)}.tag-pu{background:rgba(167,139,250,0.15);color:var(--pu)}.tag-y{background:rgba(251,191,36,0.15);color:var(--y)}.tag-cy{background:rgba(34,211,238,0.15);color:var(--cy)}.tag-pk{background:rgba(244,114,182,0.15);color:var(--pk)}.tag-m{background:rgba(148,163,184,0.15);color:var(--muted)}
+/* 进度条 */
+.progress-s{height:4px;background:rgba(255,255,255,0.06);border-radius:3px;overflow:hidden;width:60px;display:inline-block;vertical-align:middle}
+.progress-s-fill{height:100%;border-radius:3px}
+/* 流量分配滑块 */
+.traffic-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px;transition:all 0.2s}
+.traffic-card:hover{border-color:var(--pk)}
+.traffic-card.selected{border-color:var(--pk);background:rgba(244,114,182,0.05)}
+.traffic-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.traffic-name{font-weight:700;font-size:13px}
+.traffic-tags{display:flex;gap:4px}
+.traffic-slider-wrap{display:flex;align-items:center;gap:10px;margin-top:8px}
+.traffic-slider{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:rgba(255,255,255,0.08);outline:none}
+.traffic-slider::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--pk);cursor:pointer;border:2px solid var(--bg)}
+.traffic-val{font-size:14px;font-weight:900;color:var(--pk);min-width:45px;text-align:right}
+.traffic-info{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:10px}
+.traffic-info-item{font-size:10px;color:var(--muted)}.traffic-info-val{font-size:12px;font-weight:700;color:var(--tx);margin-top:2px}
+/* 客户提醒 */
+.alert-item{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:rgba(255,255,255,0.015);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--o)}
+.alert-item.warn{border-left-color:var(--y)}.alert-item.danger{border-left-color:var(--r)}.alert-item.good{border-left-color:var(--g)}
+.alert-time{font-size:10px;color:var(--muted);white-space:nowrap}
+.alert-text{font-size:12px;flex:1;line-height:1.5}
+.alert-action{display:flex;gap:4px;flex-shrink:0}
+/* 分润 */
+.profit-row{display:flex;gap:12px;margin-bottom:12px}
+.profit-card{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:14px;flex:1;text-align:center}
+.profit-val{font-size:22px;font-weight:900;color:var(--g);line-height:1}
+.profit-label{font-size:10px;color:var(--muted);margin-top:4px}
+/* 标签筛选 */
+.tag-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tag-filter-item{padding:4px 10px;border-radius:8px;font-size:11px;cursor:pointer;border:1px solid var(--border);color:var(--muted);transition:all 0.15s;user-select:none}
+.tag-filter-item.on{background:rgba(244,114,182,0.12);border-color:rgba(244,114,182,0.4);color:var(--pk);font-weight:600}
+/* 隐藏权限 */
+.locked{position:relative;filter:blur(4px);pointer-events:none;user-select:none}
+.lock-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(15,23,42,0.7);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;z-index:10;cursor:default}
+.lock-icon{font-size:28px}.lock-text{font-size:12px;color:var(--muted)}
+.col-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){.col-2{grid-template-columns:1fr}.kpi-row{flex-wrap:wrap}.kpi{min-width:45%}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">全</div>
+  <div class="title">
+    <div class="title-main">
+      全犀生态 · 服务商数据后台
+      <span id="role-badge" class="user-badge badge-super">🔑 大服务商权限</span>
+    </div>
+    <div class="title-sub" id="role-sub">岁月新剧场 · 天津市 · 可操作流量分配</div>
+  </div>
+  <div class="hdr-right">
+    <button class="btn btn-sm" onclick="toggleRole()">🔄 切换权限演示</button>
+    <div style="text-align:right">
+      <div style="font-size:11px;font-weight:700">岁月新剧场</div>
+      <div style="font-size:10px;color:var(--muted)" id="hdr-role">大服务商</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- 权限演示提示 -->
+<div class="pern-bar">
+  <span style="font-size:13px;font-weight:700;color:var(--o)">📋 演示模式</span>
+  <span style="font-size:11px;color:var(--muted)">当前查看：</span>
+  <select id="role-select" onchange="switchRole(this.value)">
+    <option value="super">🔑 大服务商（岁月新剧场）</option>
+    <option value="normal">👤 普通服务商</option>
+    <option value="store">🏪 门店管理员</option>
+  </select>
+  <span style="font-size:11px;color:var(--muted)">切换查看不同权限看到的内容</span>
+</div>
+
+<!-- ===== 大服务商KPI ===== -->
+<div class="kpi-row" id="kpi-super">
+  <div class="kpi pk"><div class="kpi-num" style="color:var(--pk)">286</div><div class="kpi-label">管理门店数</div><div class="kpi-sub up">▲ 本月+38</div></div>
+  <div class="kpi g"><div class="kpi-num" style="color:var(--g)">18.9万</div><div class="kpi-label">私域总人数</div><div class="kpi-sub up">▲ +2.8万</div></div>
+  <div class="kpi o"><div class="kpi-num" style="color:var(--o)">892万</div><div class="kpi-label">累计GMV</div><div class="kpi-sub up">▲ 本月+128万</div></div>
+  <div class="kpi b"><div class="kpi-num" style="color:var(--b)">23</div><div class="kpi-label">可分配直播间</div><div class="kpi-sub">百货8 · 康养7 · 兴趣8</div></div>
+  <div class="kpi y"><div class="kpi-num" style="color:var(--y)">6.8%</div><div class="kpi-label">平均衰减率</div><div class="kpi-sub down">▼ 优化-1.2%</div></div>
+  <div class="kpi cy"><div class="kpi-num" style="color:var(--cy)">¥4,260</div><div class="kpi-label">人均消费</div><div class="kpi-sub up">▲ +¥380</div></div>
+</div>
+
+<!-- 普通/门店KPI -->
+<div class="kpi-row" id="kpi-normal" style="display:none">
+  <div class="kpi b"><div class="kpi-num" style="color:var(--b)">3</div><div class="kpi-label">我的门店数</div></div>
+  <div class="kpi g"><div class="kpi-num" style="color:var(--g)">3,862</div><div class="kpi-label">私域人数</div><div class="kpi-sub up">▲ +426</div></div>
+  <div class="kpi o"><div class="kpi-num" style="color:var(--o)">28.6万</div><div class="kpi-label">累计GMV</div><div class="kpi-sub up">▲ 本月+4.2万</div></div>
+  <div class="kpi pk"><div class="kpi-num" style="color:var(--pk)">71.2%</div><div class="kpi-label">平均核销率</div><div class="kpi-sub up">▲ +3.1%</div></div>
+</div>
+
+<!-- ===== 模块1：平台直播间数据（大服务商专属） ===== -->
+<div class="section" id="section-live" style="display:none">
+  <div class="sec-hd">
+    <span class="sec-icon">📺</span>
+    <span class="sec-title">平台直播间数据（脱敏）</span>
+    <span class="tag tag-pk">大服务商专属</span>
+    <span class="tag tag-m">数据每5分钟更新</span>
+  </div>
+  <div class="sec-body">
+    <!-- 属性筛选 -->
+    <div class="tag-filter" id="live-filter">
+      <div class="tag-filter-item on" onclick="filterLive('all',this)">全部</div>
+      <div class="tag-filter-item" onclick="filterLive('百货',this)">🛍️ 百货类</div>
+      <div class="tag-filter-item" onclick="filterLive('康养',this)">💊 康养类</div>
+      <div class="tag-filter-item" onclick="filterLive('兴趣',this)">🎨 兴趣类</div>
+    </div>
+    <div class="table-wrap">
+      <table id="live-table">
+        <thead>
+          <tr>
+            <th onclick="sortTable('live',0)">直播间编号</th>
+            <th onclick="sortTable('live',1)">属性类目</th>
+            <th onclick="sortTable('live',2)">开播时间</th>
+            <th onclick="sortTable('live',3)">观看人数</th>
+            <th onclick="sortTable('live',4)">完播率</th>
+            <th onclick="sortTable('live',5)">客单价</th>
+            <th onclick="sortTable('live',6)">转化率</th>
+            <th onclick="sortTable('live',7)">衰减率</th>
+            <th onclick="sortTable('live',8)">人群画像</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="live-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 模块2：流量分配（大服务商专属） ===== -->
+<div class="section" id="section-traffic" style="display:none">
+  <div class="sec-hd">
+    <span class="sec-icon">🎯</span>
+    <span class="sec-title">流量自主分配</span>
+    <span class="tag tag-pk">大服务商专属</span>
+    <button class="btn btn-pri btn-sm" onclick="applyTraffic()" style="margin-left:auto">✅ 确认分配</button>
+  </div>
+  <div class="sec-body">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:14px">拖动滑块为各直播间分配流量权重，总权重自动归一化为百分比。高转化直播间建议提高权重。</div>
+    <div id="traffic-list"></div>
+    <div style="margin-top:14px;padding:12px 16px;background:rgba(244,114,182,0.06);border:1px solid rgba(244,114,182,0.15);border-radius:10px;display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+      <div style="font-size:12px;font-weight:700;color:var(--pk)">📊 分配预览</div>
+      <div style="font-size:12px;color:var(--muted)">总流量：<b style="color:var(--tx)" id="total-traffic">10,000</b> 人/日</div>
+      <div style="font-size:12px;color:var(--muted)">预计GMV：<b style="color:var(--g)" id="est-gmv">¥42.8万</b></div>
+      <div style="font-size:12px;color:var(--muted)">预计分润：<b style="color:var(--o)" id="est-profit">¥3.2万</b></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 模块3：一转/二转分润（所有角色） ===== -->
+<div class="section" id="section-profit">
+  <div class="sec-hd">
+    <span class="sec-icon">💰</span>
+    <span class="sec-title" id="profit-title">分润明细</span>
+    <span class="tag tag-g">实时更新</span>
+  </div>
+  <div class="sec-body">
+    <div class="profit-row">
+      <div class="profit-card">
+        <div class="profit-val" id="profit-1">¥12,860</div>
+        <div class="profit-label">一转分润（直接消费）</div>
+      </div>
+      <div class="profit-card">
+        <div class="profit-val" id="profit-2">¥6,420</div>
+        <div class="profit-label">二转分润（裂变消费）</div>
+      </div>
+      <div class="profit-card">
+        <div class="profit-val" id="profit-total">¥19,280</div>
+        <div class="profit-label">本月累计分润</div>
+      </div>
+      <div class="profit-card">
+        <div class="profit-val" style="color:var(--b)" id="profit-rate">33.3%</div>
+        <div class="profit-label">二转占比</div>
+      </div>
+    </div>
+    <!-- 分润明细表 -->
+    <div class="table-wrap">
+      <table id="profit-table">
+        <thead>
+          <tr>
+            <th>日期</th>
+            <th>门店/来源</th>
+            <th>一转金额</th>
+            <th>一转分润</th>
+            <th>二转金额</th>
+            <th>二转分润</th>
+            <th>合计分润</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody id="profit-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 模块4：重点客户提醒（所有角色） ===== -->
+<div class="col-2" id="section-alert">
+  <div class="section">
+    <div class="sec-hd">
+      <span class="sec-icon">🔔</span>
+      <span class="sec-title">重点客户提醒</span>
+      <span class="tag tag-o">3条未处理</span>
+    </div>
+    <div class="sec-body" id="alert-list"></div>
+  </div>
+  <!-- 右侧：我的门店数据（普通/门店角色） -->
+  <div class="section" id="section-my-store">
+    <div class="sec-hd">
+      <span class="sec-icon">🏪</span>
+      <span class="sec-title" id="mystore-title">我的门店流量数据</span>
+    </div>
+    <div class="sec-body">
+      <div class="table-wrap">
+        <table id="mystore-table">
+          <thead>
+            <tr>
+              <th>门店名称</th>
+              <th>今日流量</th>
+              <th>一转消费</th>
+              <th>二转消费</th>
+              <th>核销率</th>
+              <th>等级</th>
+            </tr>
+          </thead>
+          <tbody id="mystore-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 模块5：维护操作（大服务商专属） ===== -->
+<div class="section" id="section-maint" style="display:none">
+  <div class="sec-hd">
+    <span class="sec-icon">🔧</span>
+    <span class="sec-title">直播间维护</span>
+    <span class="tag tag-pk">大服务商专属</span>
+  </div>
+  <div class="sec-body">
+    <div style="font-size:11px;color:var(--muted);margin-bottom:12px">大服务商可对异常直播间进行标记维护，平台将优先处理标记直播间的问题。</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>直播间编号</th>
+            <th>属性</th>
+            <th>状态</th>
+            <th>异常说明</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>LIVE-008</b></td>
+            <td><span class="tag tag-cy">兴趣类</span></td>
+            <td><span class="tag tag-r">⚠️ 数据异常</span></td>
+            <td style="color:var(--muted);font-size:12px">完播率连续3天低于阈值（12%）</td>
+            <td><button class="btn btn-sm" onclick="this.textContent='✅ 已处理';this.disabled=true">标记已处理</button></td>
+          </tr>
+          <tr>
+            <td><b>LIVE-015</b></td>
+            <td><span class="tag tag-b">百货类</span></td>
+            <td><span class="tag tag-y">⏱️ 衰减过快</span></td>
+            <td style="color:var(--muted);font-size:12px">衰减率达18.6%，超出同类目均值</td>
+            <td><button class="btn btn-sm">联系主播</button></td>
+          </tr>
+          <tr>
+            <td><b>LIVE-021</b></td>
+            <td><span class="tag tag-g">康养类</span></td>
+            <td><span class="tag tag-r">⚠️ 转化异常</span></td>
+            <td style="color:var(--muted);font-size:12px">客单价突降62%，疑似刷单</td>
+            <td><button class="btn btn-sm">标记已处理</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;padding:20px;color:var(--muted);font-size:11px;border-top:1px solid var(--border);margin-top:10px">
+  <p>© 2026 全犀生态 · 服务商数据后台 · 数据仅供参考，以平台结算为准</p>
+</div>
+
+</div><!-- end main -->
+
+<script>
+// ========== 数据 ==========
+const liveRooms = [
+  ['LIVE-001','百货','19:00-22:00',12860,0.68,268,'12.3%','18-35岁 女性68% 客单200-500','百货类'],
+  ['LIVE-002','百货','20:00-23:00',9840,0.72,356,'8.7%','25-40岁 女性75% 客单300-800','百货类'],
+  ['LIVE-003','百货','18:30-21:30',15620,0.61,198,'15.2%','20-35岁 女性60% 客单100-300','百货类'],
+  ['LIVE-004','百货','19:30-22:30',8760,0.75,420,'6.1%','28-45岁 女性72% 客单500-1200','百货类'],
+  ['LIVE-005','百货','20:00-22:00',11240,0.64,288,'11.8%','22-38岁 女性70% 客单150-400','百货类'],
+  ['LIVE-006','百货','19:00-21:00',7890,0.69,312,'9.4%','30-50岁 女性65% 客单400-900','百货类'],
+  ['LIVE-007','百货','20:30-23:30',13450,0.66,245,'13.7%','18-32岁 女性78% 客单180-450','百货类'],
+  ['LIVE-008','百货','19:00-22:00',6230,0.52,189,'18.6%','25-40岁 女性55% 客单200-600','百货类'],
+  ['LIVE-009','康养','08:00-11:00',18760,0.81,580,'4.2%','45-65岁 女性62% 客单800-2000','康养类'],
+  ['LIVE-010','康养','09:00-12:00',14320,0.78,620,'5.1%','50-70岁 女性68% 客单1000-2500','康养类'],
+  ['LIVE-011','康养','08:30-11:30',12180,0.83,710,'3.8%','48-68岁 女性70% 客单1200-3000','康养类'],
+  ['LIVE-012','康养','09:30-12:30',9870,0.76,540,'6.3%','52-72岁 女性65% 客单900-2200','康养类'],
+  ['LIVE-013','康养','08:00-10:00',15640,0.85,890,'2.9%','55-75岁 女性75% 客单1500-3500','康养类'],
+  ['LIVE-014','康养','09:00-11:00',7650,0.74,480,'7.8%','45-60岁 女性58% 客单700-1800','康养类'],
+  ['LIVE-015','康养','08:30-10:30',11280,0.79,650,'5.6%','50-68岁 女性72% 客单1100-2800','康养类'],
+  ['LIVE-016','兴趣','14:00-17:00',23560,0.58,128,'16.8%','18-30岁 男女均衡 客单50-200','兴趣类'],
+  ['LIVE-017','兴趣','15:00-18:00',19870,0.54,89,'19.2%','16-28岁 男性62% 客单30-150','兴趣类'],
+  ['LIVE-018','兴趣','14:30-17:30',16780,0.61,156,'14.1%','20-35岁 女性58% 客单80-250','兴趣类'],
+  ['LIVE-019','兴趣','15:30-18:30',14320,0.57,112,'17.5%','18-32岁 男女均衡 客单60-180','兴趣类'],
+  ['LIVE-020','兴趣','14:00-16:00',21240,0.55,98,'18.9%','19-29岁 男性58% 客单40-160','兴趣类'],
+  ['LIVE-021','兴趣','15:00-17:00',18760,0.59,134,'15.3%','21-36岁 女性55% 客单70-220','兴趣类'],
+  ['LIVE-022','兴趣','14:30-16:30',15670,0.62,145,'13.8%','22-38岁 男女均衡 客单90-280','兴趣类'],
+  ['LIVE-023','兴趣','15:30-17:30',13450,0.56,108,'17.1%','18-30岁 女性60% 客单50-190','兴趣类'],
+];
+
+const profitData = [
+  ['2026-05-20','海底捞南开店',4860,972,2340,702,1674,'✅ 已结算'],
+  ['2026-05-19','闺蜜美甲河西店',3240,648,1890,567,1215,'✅ 已结算'],
+  ['2026-05-19','华润万家津湾店',5670,1134,3120,936,2070,'✅ 已结算'],
+  ['2026-05-18','星轶影城天津店',7890,1578,4230,1269,2847,'✅ 已结算'],
+  ['2026-05-18','乐友母婴南开店',2340,468,1560,468,936,'⏳ 待结算'],
+  ['2026-05-17','百果园和平路店',1890,378,1120,336,714,'✅ 已结算'],
+  ['2026-05-17','途虎养车河西店',3450,690,1980,594,1284,'✅ 已结算'],
+];
+
+const alerts = [
+  {type:'danger',time:'10分钟前',text:'<b>海底捞南开店</b> 单日消费异常激增（¥68,200 → 预估¥8,900），疑似刷单，请核查。'},
+  {type:'warn',time:'32分钟前',text:'<b>直播间 LIVE-015</b> 衰减率升至18.6%，超过同类目均值2倍以上，建议降低流量分配。'},
+  {type:'good',time:'1小时前',text:'<b>闺蜜美甲工作室</b> 私域粉丝突破3万，二转分润环比增长42%，表现优秀。'},
+  {type:'warn',time:'2小时前',text:'<b>华润万家津湾店</b> 核销率降至71%（均值91%），建议推送优惠券激活。'},
+];
+
+const myStores = [
+  ['海底捞南开店','餐饮','428','¥32,800','¥12,400',0.79,'S'],
+  ['闺蜜美甲河西店','美容美甲','326','¥18,200','¥6,800',0.82,'A'],
+  ['华润万家津湾店','超市便利','521','¥41,600','¥15,200',0.91,'S'],
+];
+
+// ========== 渲染 ==========
+function renderLive(){
+  const tbody = document.getElementById('live-tbody');
+  tbody.innerHTML = '';
+  liveRooms.forEach(function(r,i){
+    const tr = document.createElement('tr');
+    const rateColor = r[7] < 0.1 ? 'var(--g)' : r[7] < 0.18 ? 'var(--y)' : 'var(--r)';
+    const catTag = r[9]=='百货类' ? 'tag-b' : r[9]=='康养类' ? 'tag-g' : 'tag-cy';
+    tr.innerHTML =
+      '<td><b>'+r[0]+'</b></td>'+
+      '<td><span class="tag '+catTag+'">'+r[1]+'</span></td>'+
+      '<td>'+r[2]+'</td>'+
+      '<td style="text-align:right">'+r[3].toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:'+(r[4]>0.65?'var(--g)':'var(--y)')+'">'+Math.round(r[4]*100)+'%</td>'+
+      '<td style="text-align:right;color:var(--o)">¥'+r[5].toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:'+(r[6]>0.08?'var(--g)':'var(--y)')+'">'+Math.round(r[6]*100)+'%</td>'+
+      '<td><div class="progress-s"><div class="progress-s-fill" style="width:'+Math.min(r[7]*500,100)+'%;background:'+rateColor+'"></div></div> '+Math.round(r[7]*100)+'%</td>'+
+      '<td style="font-size:11px;color:var(--muted);max-width:180px">'+r[8]+'</td>'+
+      '<td><button class="btn btn-sm" onclick="addTraffic('+i+')">🎯 分配流量</button></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function renderProfit(){
+  const tbody = document.getElementById('profit-tbody');
+  tbody.innerHTML = '';
+  profitData.forEach(function(r){
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td>'+r[0]+'</td>'+
+      '<td><b>'+r[1]+'</b></td>'+
+      '<td style="text-align:right">¥'+Number(r[2]).toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:var(--g)">¥'+Number(r[3]).toLocaleString()+'</td>'+
+      '<td style="text-align:right">¥'+Number(r[4]).toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:var(--o)">¥'+Number(r[5]).toLocaleString()+'</td>'+
+      '<td style="text-align:right;font-weight:700;color:var(--pk)">¥'+Number(r[6]).toLocaleString()+'</td>'+
+      '<td>'+r[7]+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+
+function renderAlerts(){
+  const box = document.getElementById('alert-list');
+  box.innerHTML = '';
+  alerts.forEach(function(a){
+    const div = document.createElement('div');
+    div.className = 'alert-item '+a.type;
+    div.innerHTML = '<div class="alert-time">'+a.time+'</div><div class="alert-text">'+a.text+'</div>'+
+      '<div class="alert-action"><button class="btn btn-sm">处理</button></div>';
+    box.appendChild(div);
+  });
+}
+
+function renderMyStores(){
+  const tbody = document.getElementById('mystore-tbody');
+  tbody.innerHTML = '';
+  myStores.forEach(function(s){
+    const rateColor = s[5]>=0.8?'var(--g)':'var(--y)';
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><b>'+s[0]+'</b><br><span class="td-sub">'+s[1]+'</span></td>'+
+      '<td style="text-align:right;color:var(--b)">'+s[2]+' 人</td>'+
+      '<td style="text-align:right;color:var(--g)">'+s[3]+'</td>'+
+      '<td style="text-align:right;color:var(--o)">'+s[4]+'</td>'+
+      '<td><div class="progress-s"><div class="progress-s-fill" style="width:'+s[5]*100+'%;background:'+rateColor+'"></div></div> '+Math.round(s[5]*100)+'%</td>'+
+      '<td><span class="tag tag-g">'+s[6]+'级</span></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+// ========== 流量分配 ==========
+let trafficWeights = liveRooms.map(function(){return 50}); // 初始均分
+
+function renderTraffic(){
+  const box = document.getElementById('traffic-list');
+  box.innerHTML = '';
+  const total = trafficWeights.reduce(function(a,b){return a+b;},0);
+  liveRooms.forEach(function(r,i){
+    const pct = total > 0 ? Math.round(trafficWeights[i]/total*100) : 0;
+    const catTag = r[9]=='百货类' ? 'tag-b' : r[9]=='康养类' ? 'tag-g' : 'tag-cy';
+    const div = document.createElement('div');
+    div.className = 'traffic-card' + (trafficWeights[i]>60?' selected':'');
+    div.id = 'tc-'+i;
+    div.innerHTML =
+      '<div class="traffic-top">'+
+        '<div><b>'+r[0]+'</b> <span class="tag '+catTag+'" style="font-size:9px">'+r[1]+'</span></div>'+
+        '<div style="font-size:11px;color:var(--muted)">完播'+Math.round(r[4]*100)+'% · 转化'+Math.round(r[6]*100)+'% · 衰减'+(r[7]*100).toFixed(1)+'%'</div>'+
+      '</div>'+
+      '<div class="traffic-slider-wrap">'+
+        '<input type="range" class="traffic-slider" min="0" max="100" value="'+trafficWeights[i]+'" oninput="updateWeight('+i+',this.value)" style="background:linear-gradient(90deg,var(--pk) '+pct+'%,rgba(255,255,255,0.08) '+pct+'%)">'+
+        '<div class="traffic-val">'+pct+'%</div>'+
+      '</div>'+
+      '<div class="traffic-info">'+
+        '<div><div class="traffic-info-item">观看人数</div><div class="traffic-info-val">'+r[3].toLocaleString()+'</div></div>'+
+        '<div><div class="traffic-info-item">客单价</div><div class="traffic-info-val">¥'+r[5].toLocaleString()+'</div></div>'+
+        '<div><div class="traffic-info-item">人群</div><div class="traffic-info-val" style="font-size:11px;color:var(--muted)">'+r[8].split(' ')[0]+'</div></div>'+
+        '<div><div class="traffic-info-item">开播时间</div><div class="traffic-info-val">'+r[2]+'</div></div>'+
+      '</div>';
+    box.appendChild(div);
+  });
+  updateTrafficPreview();
+}
+
+function updateWeight(i,val){
+  trafficWeights[i] = parseInt(val);
+  renderTraffic();
+}
+
+function updateTrafficPreview(){
+  const total = trafficWeights.reduce(function(a,b){return a+b;},0);
+  document.getElementById('total-traffic').textContent = total>0 ? Math.round(10000*total/100) : 0;
+  // 模拟预估GMV和分润
+  const gmv = Math.round(428000 * total/100);
+  const profit = Math.round(gmv * 0.075);
+  document.getElementById('est-gmv').textContent = '¥' + (gmv/10000).toFixed(1) + '万';
+  document.getElementById('est-profit').textContent = '¥' + (profit/10000).toFixed(1) + '万';
+}
+
+function addTraffic(i){
+  trafficWeights[i] = Math.min(100, trafficWeights[i]+20);
+  renderTraffic();
+  document.getElementById('section-traffic').scrollIntoView({behavior:'smooth'});
+}
+
+function applyTraffic(){
+  const total = trafficWeights.reduce(function(a,b){return a+b;},0);
+  alert('✅ 流量分配已确认！\n\n总权重：'+total+'（已归一化为百分比）\n预计GMV：'+document.getElementById('est-gmv').textContent+'\n预计分润：'+document.getElementById('est-profit').textContent);
+}
+
+// ========== 筛选 ==========
+function filterLive(cat,el){
+  document.querySelectorAll('#live-filter .tag-filter-item').forEach(function(x){x.classList.remove('on')});
+  el.classList.add('on');
+  const tbody = document.getElementById('live-tbody');
+  tbody.innerHTML = '';
+  const filtered = cat=='all' ? liveRooms : liveRooms.filter(function(r){return r[9]==cat});
+  filtered.forEach(function(r,i){
+    const tr = document.createElement('tr');
+    const rateColor = r[7] < 0.1 ? 'var(--g)' : r[7] < 0.18 ? 'var(--y)' : 'var(--r)';
+    const catTag = r[9]=='百货类' ? 'tag-b' : r[9]=='康养类' ? 'tag-g' : 'tag-cy';
+    tr.innerHTML =
+      '<td><b>'+r[0]+'</b></td>'+
+      '<td><span class="tag '+catTag+'">'+r[1]+'</span></td>'+
+      '<td>'+r[2]+'</td>'+
+      '<td style="text-align:right">'+r[3].toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:'+(r[4]>0.65?'var(--g)':'var(--y)')+'">'+Math.round(r[4]*100)+'%</td>'+
+      '<td style="text-align:right;color:var(--o)">¥'+r[5].toLocaleString()+'</td>'+
+      '<td style="text-align:right;color:'+(r[6]>0.08?'var(--g)':'var(--y)')+'">'+Math.round(r[6]*100)+'%</td>'+
+      '<td><div class="progress-s"><div class="progress-s-fill" style="width:'+Math.min(r[7]*500,100)+'%;background:'+rateColor+'"></div></div> '+Math.round(r[7]*100)+'%</td>'+
+      '<td style="font-size:11px;color:var(--muted);max-width:180px">'+r[8]+'</td>'+
+      '<td><button class="btn btn-sm" onclick="addTraffic('+liveRooms.indexOf(r)+')">🎯 分配流量</button></td>';
+    tbody.appendChild(tr);
+  });
+}
+
+// ========== 权限切换 ==========
+let currentRole = 'super';
+
+function toggleRole(){
+  const roles = ['super','normal','store'];
+  const idx = (roles.indexOf(currentRole)+1)%3;
+  switchRole(roles[idx]);
+}
+
+function switchRole(role){
+  currentRole = role;
+  document.getElementById('role-select').value = role;
+  const badge = document.getElementById('role-badge');
+  const sub = document.getElementById('role-sub');
+  const hdrRole = document.getElementById('hdr-role');
+  const kpiSuper = document.getElementById('kpi-super');
+  const kpiNormal = document.getElementById('kpi-normal');
+  const secLive = document.getElementById('section-live');
+  const secTraffic = document.getElementById('section-traffic');
+  const secMaint = document.getElementById('section-maint');
+  const profitTitle = document.getElementById('profit-title');
+  const myStoreTitle = document.getElementById('mystore-title');
+
+  if(role=='super'){
+    badge.className='user-badge badge-super'; badge.textContent='🔑 大服务商权限';
+    sub.textContent='岁月新剧场 · 天津市 · 可操作流量分配';
+    hdrRole.textContent='大服务商';
+    kpiSuper.style.display='flex'; kpiNormal.style.display='none';
+    secLive.style.display='block'; secTraffic.style.display='block'; secMaint.style.display='block';
+    profitTitle.textContent='分润明细（全部门店）';
+    myStoreTitle.textContent='全部门店流量数据';
+    document.getElementById('profit-1').textContent='¥12,860';
+    document.getElementById('profit-2').textContent='¥6,420';
+    document.getElementById('profit-total').textContent='¥19,280';
+  } else if(role=='normal'){
+    badge.className='user-badge badge-normal'; badge.textContent='👤 普通服务商';
+    sub.textContent='管理3家门店 · 查看本账号分润数据';
+    hdrRole.textContent='普通服务商';
+    kpiSuper.style.display='none'; kpiNormal.style.display='flex';
+    secLive.style.display='none'; secTraffic.style.display='none'; secMaint.style.display='none';
+    profitTitle.textContent='分润明细（我的门店）';
+    myStoreTitle.textContent='我的门店流量数据';
+    document.getElementById('profit-1').textContent='¥3,240';
+    document.getElementById('profit-2').textContent='¥1,580';
+    document.getElementById('profit-total').textContent='¥4,820';
+  } else {
+    badge.className='user-badge badge-normal'; badge.textContent='🏪 门店管理员';
+    sub.textContent='海底捞南开店 · 查看本店数据';
+    hdrRole.textContent='门店管理员';
+    kpiSuper.style.display='none'; kpiNormal.style.display='flex';
+    secLive.style.display='none'; secTraffic.style.display='none'; secMaint.style.display='none';
+    profitTitle.textContent='分润明细（本店）';
+    myStoreTitle.textContent='本店流量数据';
+    document.getElementById('profit-1').textContent='¥972';
+    document.getElementById('profit-2').textContent='¥702';
+    document.getElementById('profit-total').textContent='¥1,674';
+  }
+}
+
+// ========== 初始化 ==========
+renderLive();
+renderTraffic();
+renderProfit();
+renderAlerts();
+renderMyStores();
+</script>
+
+</body>
+</html>
