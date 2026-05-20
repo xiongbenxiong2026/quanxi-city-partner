@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全犀平台 · 城市合伙人管理后台</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--tx:#f1f5f9;--muted:#94a3b8;--b:#38bdf8;--pu:#a78bfa;--g:#34d399;--o:#fb923c;--pk:#f472b6;--y:#fbbf24;--r:#f87171;--cy:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.header{background:linear-gradient(135deg,#1e3a5f 0%,#0d1f33 100%);border-bottom:1px solid var(--border);padding:0 24px;height:60px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.logo{width:36px;height:36px;background:linear-gradient(135deg,var(--b),var(--pu));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff}
+.title{font-size:16px;font-weight:700;flex:1}
+.hdr-btns{display:flex;gap:8px}
+.btn{background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:var(--b);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;white-space:nowrap}
+.btn-pri{background:linear-gradient(135deg,var(--b),var(--pu));border:none;color:#fff}
+.nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.nav-item{padding:14px 18px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-item.on{color:var(--b);border-bottom-color:var(--b);font-weight:600}
+.main{padding:20px 24px;max-width:1440px;margin:0 auto}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:24px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.b::before{background:var(--b)}
+.kpi-card.g::before{background:var(--g)}
+.kpi-card.pu::before{background:var(--pu)}
+.kpi-card.o::before{background:var(--o)}
+.kpi-card.cy::before{background:var(--cy)}
+.kpi-icon{font-size:26px;margin-bottom:10px}
+.kpi-val{font-size:30px;font-weight:900;line-height:1}
+.kpi-label{font-size:12px;color:var(--muted);margin-top:4px}
+.kpi-trend{font-size:11px;margin-top:6px;display:flex;align-items:center;gap:4px}
+.kpi-trend.up{color:var(--g)}
+.kpi-trend.down{color:var(--r)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.sec-hd{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.sec-tit{font-size:14px;font-weight:700;flex:1}
+.sec-sub{font-size:11px;color:var(--muted)}
+.sec-body{padding:16px 20px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;padding:10px 12px;color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
+tbody td{padding:10px 12px;border-bottom:1px solid rgba(51,65,85,0.4);vertical-align:middle}
+tbody tr:hover td{background:rgba(56,189,248,0.03)}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10.5px;font-weight:600}
+.tag-g{background:rgba(52,211,153,0.12);color:var(--g)}
+.tag-y{background:rgba(251,191,36,0.12);color:var(--y)}
+.tag-o{background:rgba(251,146,60,0.12);color:var(--o)}
+.tag-r{background:rgba(248,113,113,0.12);color:var(--r)}
+.tag-b{background:rgba(56,189,248,0.12);color:var(--b)}
+.tag-pu{background:rgba(167,139,250,0.12);color:var(--pu)}
+.flex{display:flex;gap:8px;align-items:center}
+.flex-wrap{flex-wrap:wrap}
+.badge{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.input{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--tx);font-size:13px;outline:none;width:100%}
+.input:focus{border-color:var(--b)}
+select{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--tx);font-size:13px;outline:none}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center}
+.modal.on{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:90%;max-width:700px;max-height:90vh;overflow-y:auto;padding:24px}
+.modal-tit{font-size:18px;font-weight:700;margin-bottom:16px}
+.form-group{margin-bottom:14px}
+.form-label{font-size:12px;color:var(--muted);margin-bottom:6px;display:block}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.chart-placeholder{background:rgba(255,255,255,0.02);border:1px dashed var(--border);border-radius:10px;padding:30px;text-align:center;color:var(--muted);font-size:13px}
+.progress-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.map-placeholder{height:260px;background:rgba(255,255,255,0.02);border:1px dashed var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;flex-direction:column;gap:8px}
+@media(max-width:768px){.form-row{grid-template-columns:1fr}.kpi{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">全</div>
+  <div class="title">全犀平台 · 城市合伙人管理后台</div>
+  <div class="hdr-btns">
+    <button class="btn" onclick="alert('功能开发中')">📢 发布公告</button>
+    <button class="btn btn-pri" onclick="alert('功能开发中')">＋ 新增合伙人</button>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-item on" onclick="switchTab('dashboard',this)">📊 数据看板</div>
+  <div class="nav-item" onclick="switchTab('partners',this)">👥 合伙人管理</div>
+  <div class="nav-item" onclick="switchTab('applications',this)">📝 申请审批</div>
+  <div class="nav-item" onclick="switchTab('performance',this)">📈 业绩考核</div>
+  <div class="nav-item" onclick="switchTab('revenue',this)">💰 分润结算</div>
+  <div class="nav-item" onclick="switchTab('overseas',this)">🌍 海外店管理</div>
+  <div class="nav-item" onclick="switchTab('map',this)">🗺️ 城市覆盖</div>
+</div>
+
+<div class="main">
+
+<!-- ===== TAB: 数据看板 ===== -->
+<div id="tab-dashboard">
+
+  <!-- KPI Cards -->
+  <div class="kpi">
+    <div class="kpi-card b">
+      <div class="kpi-icon">🏙️</div>
+      <div class="kpi-val" id="kpi-cities">52</div>
+      <div class="kpi-label">已签约城市</div>
+      <div class="kpi-trend up">↑ 8个 本季度新增</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">👥</div>
+      <div class="kpi-val" id="kpi-partners">52</div>
+      <div class="kpi-label">活跃合伙人</div>
+      <div class="kpi-trend up">↑ 12个 本月新增</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">🏷️</div>
+      <div class="kpi-val" id="kpi-brands">3,847</div>
+      <div class="kpi-label">引入品牌方（累计）</div>
+      <div class="kpi-trend up">↑ 628 本月新增</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">🎬</div>
+      <div class="kpi-val" id="kpi-streamers">2,156</div>
+      <div class="kpi-label">引入直播间（累计）</div>
+      <div class="kpi-trend up">↑ 341 本月新增</div>
+    </div>
+    <div class="kpi-card cy">
+      <div class="kpi-icon">📡</div>
+      <div class="kpi-val" id="kpi-traffic">1,209</div>
+      <div class="kpi-label">引入流量方（累计）</div>
+      <div class="kpi-trend up">↑ 187 本月新增</div>
+    </div>
+    <div class="kpi-card b">
+      <div class="kpi-icon">🌍</div>
+      <div class="kpi-val" id="kpi-overseas">186</div>
+      <div class="kpi-label">海外店上线（累计）</div>
+      <div class="kpi-trend up">↑ 42 本月新增</div>
+    </div>
+  </div>
+
+  <!-- Row 1 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px" class="grid-2col">
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">📊 本季度城市合伙人业绩排行</div>
+        <div class="sec-sub">按综合得分排序（品牌+直播间+流量方+GMV）</div>
+      </div>
+      <div class="sec-body">
+        <table>
+          <thead><tr><th>排名</th><th>城市</th><th>合伙人</th><th>综合分</th><th>等级</th></tr></thead>
+          <tbody id="ranking-body">
+            <tr><td><span class="tag tag-g">🥇 1</span></td><td>杭州市</td><td>张伟</td><td>96.5</td><td><span class="tag tag-pu">战略合作商</span></td></tr>
+            <tr><td><span class="tag tag-g">🥈 2</span></td><td>成都市</td><td>李芳</td><td>94.2</td><td><span class="tag tag-pu">战略合作商</span></td></tr>
+            <tr><td><span class="tag tag-g">🥉 3</span></td><td>武汉市</td><td>王强</td><td>91.8</td><td><span class="tag tag-b">核心合作商</span></td></tr>
+            <tr><td><span class="tag tag-b">4</span></td><td>西安市</td><td>赵敏</td><td>88.3</td><td><span class="tag tag-b">核心合作商</span></td></tr>
+            <tr><td><span class="tag tag-b">5</span></td><td>青岛市</td><td>陈杰</td><td>85.7</td><td><span class="tag tag-b">核心合作商</span></td></tr>
+            <tr><td><span class="tag tag-b">6</span></td><td>长沙市</td><td>刘洋</td><td>83.1</td><td><span class="tag tag-b">核心合作商</span></td></tr>
+            <tr><td><span class="tag tag-y">7</span></td><td>郑州市</td><td>孙磊</td><td>79.6</td><td><span class="tag tag-g">认证合作商</span></td></tr>
+            <tr><td><span class="tag tag-y">8</span></td><td>合肥市</td><td>周婷</td><td>76.4</td><td><span class="tag tag-g">认证合作商</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">📈 月度引入趋势</div>
+        <div class="sec-sub">近6个月各角色引入数量</div>
+      </div>
+      <div class="sec-body">
+        <div class="chart-placeholder">
+          📈 图表区域（集成 ECharts 可显示）<br><br>
+          <span style="font-size:11px;color:var(--muted)">
+            品牌方折线 / 直播间柱状 / 流量方面积图<br>
+            3月达峰值：品牌+428 / 直播间+256 / 流量方+132
+          </span>
+        </div>
+        <div style="margin-top:14px">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">本季度目标完成度</div>
+          <div style="display:grid;gap:8px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>品牌方引入</span><span>628/500（125%）</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--b);"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>直播间引入</span><span>341/500（68%）</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:68%;background:var(--g);"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>流量方引入</span><span>187/250（75%）</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:75%;background:var(--pu);"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2: 预警 + 待办 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">⚠️ 预警通知</div>
+        <div class="sec-sub">连续两季度未达预警线，将启动退出机制</div>
+      </div>
+      <div class="sec-body">
+        <table>
+          <thead><tr><th>城市</th><th>合伙人</th><th>预警等级</th><th>原因</th><th>操作</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>太原市</td><td>刘建国</td><td><span class="tag tag-y">🟡 预警</span></td>
+              <td>连续1季度未达标（品牌2家/直播间3家）</td>
+              <td><button class="btn" style="padding:3px 8px;font-size:11px">联系</button></td>
+            </tr>
+            <tr>
+              <td>昆明市</td><td>黄丽</td><td><span class="tag tag-o">🟠 警告</span></td>
+              <td>连续2季度未达标，限期3个月改善</td>
+              <td><button class="btn" style="padding:3px 8px;font-size:11px">查看详情</button></td>
+            </tr>
+            <tr>
+              <td>贵阳市</td><td>周鑫</td>
+              <td><span class="tag tag-r">🔴 淘汰风险</span></td>
+              <td>连续2季度未达标，平台准备启动重新招募</td>
+              <td><button class="btn" style="padding:3px 8px;font-size:11px">处理</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">📋 待办事项</div>
+        <div class="sec-sub">需要平台运营处理的事项</div>
+      </div>
+      <div class="sec-body">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(251,191,36,0.06);border-radius:10px;border:1px solid rgba(251,191,36,0.15)">
+            <div class="badge" style="background:rgba(251,191,36,0.12)">📝</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600">8份城市合伙人申请待审批</div>
+              <div style="font-size:11px;color:var(--muted)">长沙市、郑州市、合肥市等城市申请待处理</div>
+            </div>
+            <button class="btn btn-pri" style="padding:4px 10px;font-size:11px" onclick="switchTab('applications',document.querySelectorAll('.nav-item')[2])">去处理</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(56,189,248,0.06);border-radius:10px;border:1px solid rgba(56,189,248,0.15)">
+            <div class="badge" style="background:rgba(56,189,248,0.12)">💰</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600">本月分润结算待确认（126笔）</div>
+              <div style="font-size:11px;color:var(--muted)">涉及52个城市合伙人，总金额¥1,847,230</div>
+            </div>
+            <button class="btn" style="padding:4px 10px;font-size:11px">确认结算</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(167,139,250,0.06);border-radius:10px;border:1px solid rgba(167,139,250,0.15)">
+            <div class="badge" style="background:rgba(167,139,250,0.12)">🌍</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600">23个海外店申请待审核</div>
+              <div style="font-size:11px;color:var(--muted)">杭州市、成都市、武汉市合伙人提交申请</div>
+            </div>
+            <button class="btn" style="padding:4px 10px;font-size:11px" onclick="switchTab('overseas',document.querySelectorAll('.nav-item')[5])">去审核</button>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:10px;background:rgba(52,211,153,0.06);border-radius:10px;border:1px solid rgba(52,211,153,0.15)">
+            <div class="badge" style="background:rgba(52,211,153,0.12)">🏆</div>
+            <div style="flex:1">
+              <div style="font-size:13px;font-weight:600">Q2城市合伙人颁奖典礼筹备</div>
+              <div style="font-size:11px;color:var(--muted)">倒计时 18天，需确认嘉宾名单和奖项</div>
+            </div>
+            <button class="btn" style="padding:4px 10px;font-size:11px">查看详情</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-dashboard -->
+
+<!-- ===== TAB: 合伙人管理 ===== -->
+<div id="tab-partners" style="display:none">
+
+  <!-- 搜索筛选 -->
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-body" style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end">
+      <div style="flex:1;min-width:180px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:5px">搜索城市/合伙人</div>
+        <input class="input" placeholder="输入城市名或合伙人姓名…" id="search-partner">
+      </div>
+      <div style="min-width:120px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:5px">等级筛选</div>
+        <select id="filter-level">
+          <option value="">全部等级</option>
+          <option>战略合作商</option>
+          <option>核心合作商</option>
+          <option>认证合作商</option>
+        </select>
+      </div>
+      <div style="min-width:120px">
+        <div style="font-size:11px;color:var(--muted);margin-bottom:5px">状态筛选</div>
+        <select id="filter-status">
+          <option value="">全部状态</option>
+          <option>正常</option>
+          <option>预警</option>
+          <option>警告</option>
+          <option>淘汰</option>
+        </select>
+      </div>
+      <button class="btn btn-pri" style="padding:7px 16px" onclick="filterPartners()">🔍 搜索</button>
+      <button class="btn" style="padding:7px 16px" onclick="resetFilter()">重置</button>
+    </div>
+  </div>
+
+  <!-- 合伙人列表 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">👥 城市合伙人列表</div>
+      <div class="sec-sub" id="partner-count">共 52 条记录</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>城市</th><th>合伙人</th><th>等级</th><th>品牌方</th><th>直播间</th><th>流量方</th><th>海外店</th><th>本季得分</th><th>状态</th><th>操作</th>
+          </tr>
+        </thead>
+        <tbody id="partner-tbody">
+          <tr data-level="战略合作商" data-status="正常" data-city="杭州市" data-name="张伟">
+            <td><strong>杭州市</strong></td>
+            <td>张伟</td>
+            <td><span class="tag tag-pu">战略合作商</span></td>
+            <td>86家</td><td>52家</td><td>31家</td>
+            <td>5个</td>
+            <td>96.5</td>
+            <td><span class="tag tag-g">正常</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px" onclick="viewPartner('hangzhou')">查看</button></td>
+          </tr>
+          <tr data-level="战略合作商" data-status="正常" data-city="成都市" data-name="李芳">
+            <td><strong>成都市</strong></td>
+            <td>李芳</td>
+            <td><span class="tag tag-pu">战略合作商</span></td>
+            <td>72家</td><td>48家</td><td>28家</td>
+            <td>5个</td>
+            <td>94.2</td>
+            <td><span class="tag tag-g">正常</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px" onclick="viewPartner('chengdu')">查看</button></td>
+          </tr>
+          <tr data-level="核心合作商" data-status="正常" data-city="武汉市" data-name="王强">
+            <td><strong>武汉市</strong></td>
+            <td>王强</td>
+            <td><span class="tag tag-b">核心合作商</span></td>
+            <td>54家</td><td>36家</td><td>19家</td>
+            <td>3个</td>
+            <td>91.8</td>
+            <td><span class="tag tag-g">正常</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px" onclick="viewPartner('wuhan')">查看</button></td>
+          </tr>
+          <tr data-level="核心合作商" data-status="正常" data-city="西安市" data-name="赵敏">
+            <td><strong>西安市</strong></td>
+            <td>赵敏</td>
+            <td><span class="tag tag-b">核心合作商</span></td>
+            <td>47家</td><td>31家</td><td>16家</td>
+            <td>2个</td>
+            <td>88.3</td>
+            <td><span class="tag tag-g">正常</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">查看</button></td>
+          </tr>
+          <tr data-level="核心合作商" data-status="正常" data-city="青岛市" data-name="陈杰">
+            <td><strong>青岛市</strong></td>
+            <td>陈杰</td>
+            <td><span class="tag tag-b">核心合作商</span></td>
+            <td>41家</td><td>28家</td><td>14家</td>
+            <td>2个</td>
+            <td>85.7</td>
+            <td><span class="tag tag-g">正常</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">查看</button></td>
+          </tr>
+          <tr data-level="认证合作商" data-status="预警" data-city="太原市" data-name="刘建国">
+            <td><strong>太原市</strong></td>
+            <td>刘建国</td>
+            <td><span class="tag tag-g">认证合作商</span></td>
+            <td>12家</td><td>8家</td><td>5家</td>
+            <td>0个</td>
+            <td>62.3</td>
+            <td><span class="tag tag-y">预警</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">跟进</button></td>
+          </tr>
+          <tr data-level="认证合作商" data-status="警告" data-city="昆明市" data-name="黄丽">
+            <td><strong>昆明市</strong></td>
+            <td>黄丽</td>
+            <td><span class="tag tag-g">认证合作商</span></td>
+            <td>8家</td><td>5家</td><td>3家</td>
+            <td>0个</td>
+            <td>48.7</td>
+            <td><span class="tag tag-o">警告</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">跟进</button></td>
+          </tr>
+          <tr data-level="认证合作商" data-status="淘汰" data-city="贵阳市" data-name="周鑫">
+            <td><strong>贵阳市</strong></td>
+            <td>周鑫</td>
+            <td><span class="tag tag-g">认证合作商</span></td>
+            <td>5家</td><td>3家</td><td>2家</td>
+            <td>0个</td>
+            <td>35.2</td>
+            <td><span class="tag tag-r">淘汰</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">处理</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /tab-partners -->
+
+<!-- ===== TAB: 申请审批 ===== -->
+<div id="tab-applications" style="display:none">
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📝 城市合伙人申请审批</div>
+      <div class="sec-sub">新申请需在 3 个工作日内完成初审</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>申请城市</th><th>申请人</th><th>申请时间</th><th>资源情况</th><th>状态码</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>长沙市</strong></td>
+            <td>刘洋</td>
+            <td>2026-04-25</td>
+            <td>品牌方8家+直播间5家+社群2个</td>
+            <td><span class="tag tag-y">待初审</span></td>
+            <td>
+              <button class="btn btn-pri" style="padding:3px 8px;font-size:11px" onclick="openModal('review')">审核</button>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>郑州市</strong></td>
+            <td>孙磊</td>
+            <td>2026-04-22</td>
+            <td>品牌方12家+MCN机构1家+产业园区资源</td>
+            <td><span class="tag tag-y">待初审</span></td>
+            <td><button class="btn btn-pri" style="padding:3px 8px;font-size:11px">审核</button></td>
+          </tr>
+          <tr>
+            <td><strong>合肥市</strong></td>
+            <td>周婷</td>
+            <td>2026-04-20</td>
+            <td>品牌方6家+直播间8家+海外贸易资源</td>
+            <td><span class="tag tag-b">面试中</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">安排面试</button></td>
+          </tr>
+          <tr>
+            <td><strong>福州市</strong></td>
+            <td>林峰</td>
+            <td>2026-04-18</td>
+            <td>品牌方15家+直播间10家+流量方资源</td>
+            <td><span class="tag tag-g">通过初审</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">进入签约</button></td>
+          </tr>
+          <tr>
+            <td><strong>南昌市</strong></td>
+            <td>吴强</td>
+            <td>2026-04-15</td>
+            <td>品牌方4家+直播间3家</td>
+            <td><span class="tag tag-r">已拒绝</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">查看原因</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 申请条件说明 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 准入条件参考</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--b)">基础条件（必须满足）</div>
+          <div style="font-size:12.5px;line-height:2;color:var(--muted)">
+            ✅ 独立法人资格或有效营业执照<br>
+            ✅ 目标城市实际经营或长期居住证明<br>
+            ✅ 无重大违法违规记录
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--pu)">资源条件（至少满足2项）</div>
+          <div style="font-size:12.5px;line-height:2;color:var(--muted)">
+            ✅ 当地品牌方/经销商资源（≥5家意向）<br>
+            ✅ 当地直播间或主播资源<br>
+            ✅ 私域流量资源（社群/门店/KOL）<br>
+            ✅ MCN/电商运营/产业园区经验<br>
+            ✅ 海外贸易相关资源（优先）
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-applications -->
+
+<!-- ===== TAB: 业绩考核 ===== -->
+<div id="tab-performance" style="display:none">
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📈 季度考核管理（2026 Q2）</div>
+      <div class="sec-sub">考核周期：每季度90天 | 首个季度为保护期</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>城市</th><th>合伙人</th><th>品牌方</th><th>直播间</th><th>流量方</th><th>海外店</th><th>综合分</th><th>考核结果</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>杭州市</strong></td>
+            <td>张伟</td>
+            <td><span class="tag tag-g">86家 ✅</span></td>
+            <td><span class="tag tag-g">52家 ✅</span></td>
+            <td><span class="tag tag-g">31家 ✅</span></td>
+            <td><span class="tag tag-g">5个 ✅</span></td>
+            <td>96.5</td>
+            <td><span class="tag tag-pu">🌟 优秀</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">详情</button></td>
+          </tr>
+          <tr>
+            <td><strong>成都市</strong></td>
+            <td>李芳</td>
+            <td><span class="tag tag-g">72家 ✅</span></td>
+            <td><span class="tag tag-g">48家 ✅</span></td>
+            <td><span class="tag tag-g">28家 ✅</span></td>
+            <td><span class="tag tag-g">5个 ✅</span></td>
+            <td>94.2</td>
+            <td><span class="tag tag-pu">🌟 优秀</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">详情</button></td>
+          </tr>
+          <tr>
+            <td><strong>武汉市</strong></td>
+            <td>王强</td>
+            <td><span class="tag tag-g">54家 ✅</span></td>
+            <td><span class="tag tag-g">36家 ✅</span></td>
+            <td><span class="tag tag-g">19家 ✅</span></td>
+            <td><span class="tag tag-g">3个 ✅</span></td>
+            <td>91.8</td>
+            <td><span class="tag tag-b">✅ 达标</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">详情</button></td>
+          </tr>
+          <tr>
+            <td><strong>太原市</strong></td>
+            <td>刘建国</td>
+            <td><span class="tag tag-y">12家 ⚠️</span></td>
+            <td><span class="tag tag-y">8家 ⚠️</span></td>
+            <td><span class="tag tag-y">5家 ⚠️</span></td>
+            <td><span class="tag tag-r">0个 ❌</span></td>
+            <td>62.3</td>
+            <td><span class="tag tag-y">⚠️ 预警</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">发通知</button></td>
+          </tr>
+          <tr>
+            <td><strong>昆明市</strong></td>
+            <td>黄丽</td>
+            <td><span class="tag tag-o">8家 ⚠️</span></td>
+            <td><span class="tag tag-o">5家 ⚠️</span></td>
+            <td><span class="tag tag-o">3家 ⚠️</span></td>
+            <td><span class="tag tag-r">0个 ❌</span></td>
+            <td>48.7</td>
+            <td><span class="tag tag-o">⚠️ 警告</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">限期改善</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 考核标准说明 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 考核标准（2026 Q2）</div>
+    </div>
+    <div class="sec-body">
+      <table>
+        <thead><tr><th>考核等级</th><th>品牌方</th><th>直播间</th><th>流量方</th><th>海外店</th><th>综合分</th><th>结果</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-pu">优秀</span></td>
+            <td>≥10家</td><td>≥10家</td><td>≥5家</td><td>已启动</td><td>≥90</td>
+            <td>授权续期 + 额外奖励</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-b">达标</span></td>
+            <td>≥5家</td><td>≥5家</td><td>≥3家</td><td>—</td><td>≥75</td>
+            <td>正常续期</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-y">预警</span></td>
+            <td>≥3家</td><td>≥3家</td><td>≥1家</td><td>—</td><td>≥60</td>
+            <td>限期3个月改善</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-r">淘汰</span></td>
+            <td Colspan="5">连续2个考核期未达预警线</td>
+            <td>终止合作，城市重新开放</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;font-size:11px;color:var(--muted)">⚠️ 首个季度（签约后90天）为保护期，仅要求完成新手任务（品牌≥3家+直播间≥3家），不纳入淘汰考核。</div>
+    </div>
+  </div>
+
+</div><!-- /tab-performance -->
+
+<!-- ===== TAB: 分润结算 ===== -->
+<div id="tab-revenue" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card b">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥1,847,230</div>
+      <div class="kpi-label">本月待结算总额</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-val">126笔</div>
+      <div class="kpi-label">本月结算笔数</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-val">¥5,210,800</div>
+      <div class="kpi-label">年度累计分润</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">👥</div>
+      <div class="kpi-val">52人</div>
+      <div class="kpi-label">活跃合伙人</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">💰 分润明细（2026年4月）</div>
+      <div class="sec-sub">结算周期：月结，次月15日前到账</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+        <thead><tr><th>城市</th><th>合伙人</th><th>品牌方提成</th><th>直播间提成</th><th>流量方分润</th><th>广告收益</th><th>海外店分润</th><th>本月合计</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>杭州市</strong></td>
+            <td>张伟</td>
+            <td>¥86,000</td><td>¥130,000</td><td>¥42,300</td>
+            <td>¥28,500</td><td>¥65,200</td>
+            <td><strong style="color:var(--g)">¥352,000</strong></td>
+            <td><span class="tag tag-g">待发放</span></td>
+          </tr>
+          <tr>
+            <td><strong>成都市</strong></td>
+            <td>李芳</td>
+            <td>¥72,000</td><td>¥120,000</td><td>¥38,600</td>
+            <td>¥22,300</td><td>¥58,400</td>
+            <td><strong style="color:var(--g)">¥311,300</strong></td>
+            <td><span class="tag tag-g">待发放</span></td>
+          </tr>
+          <tr>
+            <td><strong>武汉市</strong></td>
+            <td>王强</td>
+            <td>¥54,000</td><td>¥90,000</td><td>¥26,800</td>
+            <td>¥15,200</td><td>¥32,100</td>
+            <td><strong style="color:var(--g)">¥218,100</strong></td>
+            <td><span class="tag tag-g">待发放</span></td>
+          </tr>
+          <tr>
+            <td><strong>西安市</strong></td>
+            <td>赵敏</td>
+            <td>¥47,000</td><td>¥77,500</td><td>¥21,400</td>
+            <td>¥12,800</td><td>¥18,600</td>
+            <td><strong style="color:var(--g)">¥177,300</strong></td>
+            <td><span class="tag tag-g">待发放</span></td>
+          </tr>
+          <tr>
+            <td><strong>青岛市</strong></td>
+            <td>陈杰</td>
+            <td>¥41,000</td><td>¥70,000</td><td>¥18,200</td>
+            <td>¥9,800</td><td>¥12,400</td>
+            <td><strong style="color:var(--g)">¥151,400</strong></td>
+            <td><span class="tag tag-g">待发放</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 分润规则说明 -->
+  <div class="section" style="margin-top:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 分润规则说明</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+        <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--b);margin-bottom:8px">品牌方入驻收益</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            方案A：2,000元/家 + GMV 0.5%<br>
+            方案B：5,000元/家 + GMV 0.2%<br>
+            <span style="color:var(--g)">→ 长期分润，合作存续则不止</span>
+          </div>
+        </div>
+        <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--g);margin-bottom:8px">直播间入驻收益</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            有效在线≤1万：2500元/家<br>
+            每递增1万在线：+2500元<br>
+            流量消耗分润：1%（自行定价）
+          </div>
+        </div>
+        <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--pu);margin-bottom:8px">流量方入驻收益</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            粉丝消费总额 0.5% 分润<br>
+            <span style="color:var(--pk)">→ 终身绑定，持续受益</span><br>
+            被邀请方收益的 15%
+          </div>
+        </div>
+        <div style="background:rgba(251,146,60,0.05);border:1px solid rgba(251,146,60,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:13px;font-weight:700;color:var(--o);margin-bottom:8px">海外店收益（重点）</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            商品销售利润分成<br>
+            海外分销差价收益<br>
+            品牌授权溢价收益<br>
+            B2B+B2C订单分成
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-revenue -->
+
+<!-- ===== TAB: 海外店管理 ===== -->
+<div id="tab-overseas" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card b">
+      <div class="kpi-icon">🌍</div>
+      <div class="kpi-val">186</div>
+      <div class="kpi-label">海外店累计上线</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-val">23</div>
+      <div class="kpi-label">待审核申请</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">📦</div>
+      <div class="kpi-val">¥3,240万</div>
+      <div class="kpi-label">本月海外店GMV</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥486万</div>
+      <div class="kpi-label">本月海外店分润</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">🌍 海外店申请审核</div>
+      <div class="sec-sub">每个城市合伙人最多可获得 5 个海外店授权</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>城市</th><th>合伙人</th><th>申请数量</th><th>目标市场</th><th>申请时间</th><th>状态码</th><th>操作</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>杭州市</strong></td>
+            <td>张伟</td>
+            <td>5个（已满额）</td>
+            <td>美国、欧盟、东南亚</td>
+            <td>2026-04-10</td>
+            <td><span class="tag tag-g">✅ 已批准</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">查看详情</button></td>
+          </tr>
+          <tr>
+            <td><strong>成都市</strong></td>
+            <td>李芳</td>
+            <td>5个（已满额）</td>
+            <td>欧盟、日本、韩国</td>
+            <td>2026-04-08</td>
+            <td><span class="tag tag-g">✅ 已批准</span></td>
+            <td><button class="btn" style="padding:3px 8px;font-size:11px">查看详情</button></td>
+          </tr>
+          <tr>
+            <td><strong>武汉市</strong></td>
+            <td>王强</td>
+            <td>3个（可再申请2个）</td>
+            <td>东南亚、中东</td>
+            <td>2026-04-20</td>
+            <td><span class="tag tag-y">待审核</span></td>
+            <td><button class="btn btn-pri" style="padding:3px 8px;font-size:11px">审核</button></td>
+          </tr>
+          <tr>
+            <td><strong>西安市</strong></td>
+            <td>赵敏</td>
+            <td>2个（可再申请3个）</td>
+            <td>欧盟、英国</td>
+            <td>2026-04-22</td>
+            <td><span class="tag tag-y">待审核</span></td>
+            <td><button class="btn btn-pri" style="padding:3px 8px;font-size:11px">审核</button></td>
+          </tr>
+          <tr>
+            <td><strong>青岛市</strong></td>
+            <td>陈杰</td>
+            <td>2个（可再申请3个）</td>
+            <td>日本、韩国</td>
+            <td>2026-04-25</td>
+            <td><span class="tag tag-y">待审核</span></td>
+            <td><button class="btn btn-pri" style="padding:3px 8px;font-size:11px">审核</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 海外店收益说明 -->
+  <div class="section" style="margin-top:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 海外店代运营说明</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--g)">✅ 平台提供一站式代运营</div>
+          <div style="font-size:12.5px;line-height:2;color:var(--muted)">
+            ✅ 店铺注册、资质审核、店铺装修<br>
+            ✅ 选品上架、日常运营、投流推广<br>
+            ✅ 订单处理、物流配送、售后跟进<br>
+            ✅ 合规申报、税务处理<br>
+            ✅ <strong>零投入、零精力</strong>，真正实现"躺赚"
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--o)">💰 收益来源</div>
+          <div style="font-size:12.5px;line-height:2;color:var(--muted)">
+            💰 海外店商品销售利润分成<br>
+            💰 海外分销渠道差价收益<br>
+            💰 品牌授权溢价收益<br>
+            💰 B2B批量采购订单分成<br>
+            💰 B2C零售订单分成<br>
+            📊 <strong>月对账机制</strong>：确保分润数据准确
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-overseas -->
+
+<!-- ===== TAB: 城市覆盖 ===== -->
+<div id="tab-map" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card b">
+      <div class="kpi-icon">🗺️</div>
+      <div class="kpi-val">52/338</div>
+      <div class="kpi-label">已覆盖城市（全国地级市）</div>
+      <div class="kpi-trend up">目标：2026年Q4覆盖100+城市</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">🏆</div>
+      <div class="kpi-val">8</div>
+      <div class="kpi-label">战略合作商城市</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">🏅</div>
+      <div class="kpi-val">28</div>
+      <div class="kpi-label">核心合作商城市</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">📍</div>
+      <div class="kpi-val">16</div>
+      <div class="kpi-label">待开放招募城市</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">🗺️ 城市覆盖地图</div>
+      <div class="sec-sub">绿色=已覆盖 | 黄色=待开放 | 红色=预警城市</div>
+    </div>
+    <div class="sec-body">
+      <div class="map-placeholder">
+        <div style="font-size:48px">🗺️</div>
+        <div>集成高德/百度地图 API 可显示实时城市覆盖</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:8px">
+          已覆盖：杭州、成都、武汉、西安、青岛、长沙、郑州、合肥、福州… 共52城<br>
+          待开放：太原、昆明、贵阳、南宁、兰州、西宁、银川、海口… 共16城
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" style="margin-top:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 2026年Q2-Q4扩展计划</div>
+    </div>
+    <div class="sec-body">
+      <table>
+        <thead><tr><th>批次</th><th>目标城市</th><th>选择依据</th><th>预计签约</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-g">第一批（进行中）</span></td>
+            <td>长沙、郑州、合肥、福州、南昌</td>
+            <td>省会城市，品牌资源集中</td>
+            <td>2026年5月</td>
+            <td><span class="tag tag-y">审批中</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-b">第二批</span></td>
+            <td>太原、昆明、贵阳、南宁、兰州</td>
+            <td>区域中心城，竞争较小</td>
+            <td>2026年7月</td>
+            <td><span class="tag tag-b">筹备中</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-pu">第三批</span></td>
+            <td>义乌、临沂、常熟、昆山、东莞</td>
+            <td>电商重镇，直播间高度集中</td>
+            <td>2026年9月</td>
+            <td><span class="tag tag-b">筹备中</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-o">第四批</span></td>
+            <td>厦门、三亚、珠海、大连、青岛（扩容）</td>
+            <td>沿海开放城市，海外贸易基础</td>
+            <td>2026年11月</td>
+            <td><span class="tag tag-b">筹备中</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /tab-map -->
+
+</div><!-- /main -->
+
+<!-- Modal: 审核申请 -->
+<div class="modal" id="modal-review">
+  <div class="modal-box">
+    <div class="modal-tit">📝 审核城市合伙人申请</div>
+    <div class="form-group">
+      <label class="form-label">申请城市</label>
+      <input class="input" value="长沙市" disabled>
+    </div>
+    <div class="form-group">
+      <label class="form-label">申请人</label>
+      <input class="input" value="刘洋" disabled>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">品牌方资源</label>
+        <input class="input" value="8家意向品牌（已验证）" disabled>
+      </div>
+      <div class="form-group">
+        <label class="form-label">直播间资源</label>
+        <input class="input" value="5家本地直播间" disabled>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">审核意见</label>
+      <textarea class="input" rows="3" placeholder="填写审核意见…"></textarea>
+    </div>
+    <div class="form-group">
+      <label class="form-label">审核决定</label>
+      <div style="display:flex;gap:10px;margin-top:6px">
+        <button class="btn" style="background:rgba(52,211,153,0.12);border-color:var(--g);color:var(--g);padding:8px 20px" onclick="closeModal('review')">✅ 通过初审</button>
+        <button class="btn" style="background:rgba(248,113,113,0.12);border-color:var(--r);color:var(--r);padding:8px 20px" onclick="closeModal('review')">❌ 拒绝申请</button>
+        <button class="btn" style="padding:8px 20px" onclick="closeModal('review')">安排面试</button>
+      </div>
+    </div>
+    <div style="margin-top:16px;text-align:right">
+      <button class="btn" onclick="closeModal('review')">取消</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Tab switching
+function switchTab(tabId, el){
+  document.querySelectorAll('.tab-pane').forEach(function(p){ p.style.display='none' });
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('on') });
+  var tab = document.getElementById('tab-'+tabId);
+  if(tab) tab.style.display='block';
+  if(el) el.classList.add('on');
+}
+
+// Partner filtering
+function filterPartners(){
+  var search = document.getElementById('search-partner').value.trim().toLowerCase();
+  var level = document.getElementById('filter-level').value;
+  var status = document.getElementById('filter-status').value;
+  var rows = document.querySelectorAll('#partner-tbody tr');
+  var count = 0;
+  rows.forEach(function(row){
+    var city = (row.getAttribute('data-city')||'').toLowerCase();
+    var name = (row.getAttribute('data-name')||'').toLowerCase();
+    var rowLevel = row.getAttribute('data-level')||'';
+    var rowStatus = row.getAttribute('data-status')||'';
+    var matchSearch = !search || city.indexOf(search)!==-1 || name.indexOf(search)!==-1;
+    var matchLevel = !level || rowLevel === level;
+    var matchStatus = !status || rowStatus === status;
+    if(matchSearch && matchLevel && matchStatus){
+      row.style.display='';
+      count++;
+    } else {
+      row.style.display='none';
+    }
+  });
+  document.getElementById('partner-count').textContent = '共 '+count+' 条记录';
+}
+
+function resetFilter(){
+  document.getElementById('search-partner').value='';
+  document.getElementById('filter-level').value='';
+  document.getElementById('filter-status').value='';
+  filterPartners();
+}
+
+// Modal
+function openModal(id){
+  document.getElementById('modal-'+id).classList.add('on');
+}
+function closeModal(id){
+  document.getElementById('modal-'+id).classList.remove('on');
+}
+
+// View partner detail (placeholder)
+function viewPartner(city){
+  alert('查看合伙人详情功能开发中\n城市：'+city);
+}
+
+// Init: show dashboard
+switchTab('dashboard', document.querySelector('.nav-item'));
+</script>
+
+</body>
+</html>

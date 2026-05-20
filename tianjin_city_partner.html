@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全犀平台 · 天津城市合伙人 · 岁月新剧场</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--tx:#f1f5f9;--muted:#94a3b8;--b:#38bdf8;--pu:#a78bfa;--g:#34d399;--o:#fb923c;--pk:#f472b6;--y:#fbbf24;--r:#f87171;--cy:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.header{background:linear-gradient(135deg,#1e3a5f 0%,#0d1f33 100%);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.logo{width:40px;height:40px;background:linear-gradient(135deg,var(--b),var(--pu));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff}
+.title-wrap{flex:1}
+.title{font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.city-badge{background:linear-gradient(135deg,var(--o),var(--pk));padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;color:#fff}
+.subtitle{font-size:11px;color:var(--muted);margin-top:2px}
+.hdr-right{display:flex;align-items:center;gap:12px}
+.hdr-avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--o),var(--y));display:flex;align-items:center;justify-content:center;font-size:16px}
+.hdr-info{font-size:12px}
+.hdr-info-name{font-weight:700;font-size:13px}
+.hdr-info-role{color:var(--muted);font-size:11px}
+.btn{background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:var(--b);padding:6px 14px;border-radius:8px;font-size:12px;cursor:pointer;white-space:nowrap}
+.btn-pri{background:linear-gradient(135deg,var(--b),var(--pu));border:none;color:#fff}
+.btn-g{background:rgba(52,211,153,0.12);border:1px solid rgba(52,211,153,0.3);color:var(--g)}
+.btn-o{background:rgba(251,146,60,0.12);border:1px solid rgba(251,146,60,0.3);color:var(--o)}
+.nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.nav-item{padding:14px 18px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.nav-item.on{color:var(--b);border-bottom-color:var(--b);font-weight:600}
+.main{padding:20px 24px;max-width:1440px;margin:0 auto}
+.kpi{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;overflow:hidden}
+.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.kpi-card.b::before{background:var(--b)}.kpi-card.g::before{background:var(--g)}.kpi-card.pu::before{background:var(--pu)}.kpi-card.o::before{background:var(--o)}.kpi-card.cy::before{background:var(--cy)}.kpi-card.pk::before{background:var(--pk)}.kpi-card.y::before{background:var(--y)}
+.kpi-icon{font-size:24px;margin-bottom:8px}
+.kpi-val{font-size:28px;font-weight:900;line-height:1}
+.kpi-label{font-size:11px;color:var(--muted);margin-top:3px}
+.kpi-trend{font-size:10px;margin-top:5px;display:flex;align-items:center;gap:3px}
+.kpi-trend.up{color:var(--g)}.kpi-trend.down{color:var(--r)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.sec-hd{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.sec-tit{font-size:14px;font-weight:700;flex:1}
+.sec-sub{font-size:11px;color:var(--muted)}
+.sec-body{padding:16px 20px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead th{text-align:left;padding:9px 10px;color:var(--muted);font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border)}
+tbody td{padding:9px 10px;border-bottom:1px solid rgba(51,65,85,0.4);vertical-align:middle}
+tbody tr:hover td{background:rgba(56,189,248,0.03)}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.tag-g{background:rgba(52,211,153,0.12);color:var(--g)}.tag-y{background:rgba(251,191,36,0.12);color:var(--y)}.tag-o{background:rgba(251,146,60,0.12);color:var(--o)}.tag-r{background:rgba(248,113,113,0.12);color:var(--r)}.tag-b{background:rgba(56,189,248,0.12);color:var(--b)}.tag-pu{background:rgba(167,139,250,0.12);color:var(--pu)}.tag-pk{background:rgba(244,114,182,0.12);color:var(--pk)}.tag-cy{background:rgba(34,211,238,0.12);color:var(--cy)}
+.flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.progress-bar{height:5px;border-radius:3px;background:rgba(255,255,255,0.06);overflow:hidden}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.5s}
+.input{background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:8px;padding:7px 12px;color:var(--tx);font-size:13px;outline:none;width:100%}
+.input:focus{border-color:var(--b)}
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(51,65,85,0.3)}
+.stat-row:last-child{border-bottom:none}
+.stat-label{font-size:12px;color:var(--muted)}
+.stat-val{font-size:13px;font-weight:700}
+.timeline{position:relative;padding-left:24px}
+.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:var(--border)}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:'';position:absolute;left:-20px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--b);border:2px solid var(--bg)}
+.tl-item.warn::before{background:var(--y)}.tl-item.good::before{background:var(--g)}.tl-item.bad::before{background:var(--r)}
+.tl-date{font-size:10px;color:var(--muted)}
+.tl-text{font-size:12.5px;margin-top:2px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.info-item{padding:10px 14px;background:rgba(255,255,255,0.02);border-radius:8px}
+.info-label{font-size:10px;color:var(--muted)}
+.info-val{font-size:14px;font-weight:700;margin-top:2px}
+.overseas-card{background:rgba(251,146,60,0.05);border:1px solid rgba(251,146,60,0.15);border-radius:12px;padding:16px;margin-bottom:12px}
+.modal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:200;display:none;align-items:center;justify-content:center}
+.modal.on{display:flex}
+.modal-box{background:var(--card);border:1px solid var(--border);border-radius:16px;width:90%;max-width:700px;max-height:90vh;overflow-y:auto;padding:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}.kpi{grid-template-columns:repeat(2,1fr)}.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">全</div>
+  <div class="title-wrap">
+    <div class="title">
+      全犀平台 · 城市合伙人
+      <span class="city-badge">🏙️ 天津市</span>
+    </div>
+    <div class="subtitle">岁月新剧场 | 独家授权区域代理 | 协议有效期至 2027-04-28</div>
+  </div>
+  <div class="hdr-right">
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--g)">● 运营正常</div>
+      <div style="font-size:10px;color:var(--muted)">Q2考核：✅ 达标</div>
+    </div>
+    <div class="hdr-avatar">🎭</div>
+    <div class="hdr-info">
+      <div class="hdr-info-name">岁月新剧场</div>
+      <div class="hdr-info-role">天津市城市合伙人 · 核心合作商</div>
+    </div>
+  </div>
+</div>
+
+<div class="nav">
+  <div class="nav-item on" onclick="switchTab('dashboard',this)">📊 数据总览</div>
+  <div class="nav-item" onclick="switchTab('merchants',this)">🏷️ 品牌方</div>
+  <div class="nav-item" onclick="switchTab('streamers',this)">🎬 直播间</div>
+  <div class="nav-item" onclick="switchTab('traffic',this)">📡 流量方</div>
+  <div class="nav-item" onclick="switchTab('overseas',this)">🌍 海外店</div>
+  <div class="nav-item" onclick="switchTab('revenue',this)">💰 我的收益</div>
+  <div class="nav-item" onclick="switchTab('kpi',this)">📈 考核进度</div>
+  <div class="nav-item" onclick="switchTab('resources',this)">🛠️ 平台资源</div>
+</div>
+
+<div class="main">
+
+<!-- ===== TAB: 数据总览 ===== -->
+<div id="tab-dashboard">
+
+  <div class="kpi">
+    <div class="kpi-card b">
+      <div class="kpi-icon">🏷️</div>
+      <div class="kpi-val">23</div>
+      <div class="kpi-label">引入品牌方</div>
+      <div class="kpi-trend up">↑ 本月新增 5家</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">🎬</div>
+      <div class="kpi-val">18</div>
+      <div class="kpi-label">引入直播间</div>
+      <div class="kpi-trend up">↑ 本月新增 3家</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">📡</div>
+      <div class="kpi-val">12</div>
+      <div class="kpi-label">引入流量方</div>
+      <div class="kpi-trend up">↑ 本月新增 2家</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">🌍</div>
+      <div class="kpi-val">4</div>
+      <div class="kpi-label">海外店上线</div>
+      <div class="kpi-trend up">↑ 1个待审核</div>
+    </div>
+    <div class="kpi-card cy">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥9.8万</div>
+      <div class="kpi-label">本月总收益</div>
+      <div class="kpi-trend up">↑ 较上月+23%</div>
+    </div>
+    <div class="kpi-card pk">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-val">¥156万</div>
+      <div class="kpi-label">本季度GMV</div>
+      <div class="kpi-trend up">↑ 较上季度+41%</div>
+    </div>
+    <div class="kpi-card y">
+      <div class="kpi-icon">⏱️</div>
+      <div class="kpi-val">82天</div>
+      <div class="kpi-label">签约运营天数</div>
+      <div class="kpi-trend up">保护期内</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:20px">
+    <!-- 天津核心数据 -->
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">🏙️ 天津市场数据</div>
+        <div class="sec-sub">天津市全域数据概览</div>
+      </div>
+      <div class="sec-body">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-label">授权范围</div>
+            <div class="info-val" style="font-size:13px">天津市全域（独家）</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">合伙人等级</div>
+            <div class="info-val"><span class="tag tag-b">核心合作商</span></div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">签约日期</div>
+            <div class="info-val" style="font-size:13px">2026-02-05</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">专属运营经理</div>
+            <div class="info-val" style="font-size:13px">李明（24h响应）</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">品牌方活跃率</div>
+            <div class="info-val" style="color:var(--g)">87%</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">直播间活跃率</div>
+            <div class="info-val" style="color:var(--g)">92%</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px">
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Q2 考核进度</div>
+          <div style="display:grid;gap:8px">
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>品牌方引入（23/5家）</span><span style="color:var(--g)">460% ✅</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--g)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>直播间引入（18/5家）</span><span style="color:var(--g)">360% ✅</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--g)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>流量方引入（12/3家）</span><span style="color:var(--g)">400% ✅</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:100%;background:var(--b)"></div></div>
+            </div>
+            <div>
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span>海外店运营（4/5个）</span><span style="color:var(--y)">80%</span></div>
+              <div class="progress-bar"><div class="progress-fill" style="width:80%;background:var(--y)"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 运营动态 -->
+    <div class="section">
+      <div class="sec-hd">
+        <div class="sec-tit">📋 运营动态</div>
+        <div class="sec-sub">最近 30 天</div>
+      </div>
+      <div class="sec-body">
+        <div class="timeline">
+          <div class="tl-item good">
+            <div class="tl-date">2026-05-18</div>
+            <div class="tl-text"><span class="tag tag-g">新入驻</span> 引入品牌方「津味食品」A级方案签约，首月排期12场直播</div>
+          </div>
+          <div class="tl-item good">
+            <div class="tl-date">2026-05-15</div>
+            <div class="tl-text"><span class="tag tag-g">新入驻</span> 引入直播间「天津优选直播间」月均在线8,200人，B级商家</div>
+          </div>
+          <div class="tl-item good">
+            <div class="tl-date">2026-05-12</div>
+            <div class="tl-text"><span class="tag tag-b">海外店</span> 第4家海外店（东南亚站）审核通过，已启动选品上架</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">2026-05-08</div>
+            <div class="tl-text"><span class="tag tag-pu">活动</span> 天津线下招商会举办，到场品牌方16家，意向签约5家</div>
+          </div>
+          <div class="tl-item good">
+            <div class="tl-date">2026-05-03</div>
+            <div class="tl-text"><span class="tag tag-g">新入驻</span> 引入流量方「天津宝妈社群联盟」2.8万私域粉丝</div>
+          </div>
+          <div class="tl-item warn">
+            <div class="tl-date">2026-04-28</div>
+            <div class="tl-text"><span class="tag tag-y">提醒</span> 海外店第5个名额尚未申请，建议尽快提交</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">2026-04-20</div>
+            <div class="tl-text"><span class="tag tag-o">投流</span> 抖音公域投流带来32个意向客户，已转化8家</div>
+          </div>
+          <div class="tl-item good">
+            <div class="tl-date">2026-04-15</div>
+            <div class="tl-text"><span class="tag tag-g">结算</span> 4月分润到账 ¥7.96万</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 本月收益构成 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">💰 本月收益构成（2026年5月）</div>
+      <div class="sec-sub">月结算，次月15日前到账 | 实名认证+绑定银行账户</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px">
+        <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--b);margin-bottom:4px">🏷️ 品牌方入驻提成</div>
+          <div style="font-size:22px;font-weight:900">¥46,000</div>
+          <div style="font-size:10px;color:var(--muted)">5家×A方案 + GMV 0.5%</div>
+        </div>
+        <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--g);margin-bottom:4px">🎬 直播间入驻提成</div>
+          <div style="font-size:22px;font-weight:900">¥22,500</div>
+          <div style="font-size:10px;color:var(--muted)">3家×2500 + 流量分润1%</div>
+        </div>
+        <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--pu);margin-bottom:4px">📡 流量方消费分润</div>
+          <div style="font-size:22px;font-weight:900">¥8,600</div>
+          <div style="font-size:10px;color:var(--muted)">12位流量方用户消费×0.5%</div>
+        </div>
+        <div style="background:rgba(251,146,60,0.05);border:1px solid rgba(251,146,60,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--o);margin-bottom:4px">🌍 海外店分润</div>
+          <div style="font-size:22px;font-weight:900">¥12,800</div>
+          <div style="font-size:10px;color:var(--muted)">4店销售分成+分销差价</div>
+        </div>
+        <div style="background:rgba(244,114,182,0.05);border:1px solid rgba(244,114,182,0.15);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--pk);margin-bottom:4px">📢 广告+投流收益</div>
+          <div style="font-size:22px;font-weight:900">¥8,100</div>
+          <div style="font-size:10px;color:var(--muted)">广告位招商+投流转化</div>
+        </div>
+        <div style="background:linear-gradient(135deg,rgba(56,189,248,0.1),rgba(167,139,250,0.1));border:1px solid rgba(56,189,248,0.25);border-radius:10px;padding:14px">
+          <div style="font-size:11px;color:var(--cy);margin-bottom:4px">💰 本月合计</div>
+          <div style="font-size:28px;font-weight:900;color:var(--g)">¥98,000</div>
+          <div style="font-size:10px;color:var(--g)">↑ 较上月+23%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-dashboard -->
+
+<!-- ===== TAB: 品牌方 ===== -->
+<div id="tab-merchants" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card b">
+      <div class="kpi-icon">🏷️</div>
+      <div class="kpi-val">23</div>
+      <div class="kpi-label">引入品牌方总数</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-val">20</div>
+      <div class="kpi-label">活跃品牌方</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-val">¥89万</div>
+      <div class="kpi-label">品牌方本月GMV</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥4,450</div>
+      <div class="kpi-label">本月品牌方分润</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">🏷️ 天津品牌方列表</div>
+      <div class="sec-sub">入驻提成 A方案：2,000元/家+GMV 0.5% | B方案：5,000元/家+GMV 0.2%</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>品牌名称</th><th>方案</th><th>入驻时间</th><th>本月GMV</th><th>累计GMV</th><th>直播场次</th><th>活跃度</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td><strong>津味食品</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-05-18</td><td>¥12.8万</td><td>¥12.8万</td><td>12场</td><td>98%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>卫嘴子零食</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-04-20</td><td>¥9.6万</td><td>¥38.4万</td><td>36场</td><td>95%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>海河乳品</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-03-15</td><td>¥8.2万</td><td>¥45.6万</td><td>48场</td><td>92%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>杨柳青文创</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-03-10</td><td>¥6.4万</td><td>¥32.1万</td><td>32场</td><td>90%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津老字号集合</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-03-01</td><td>¥5.8万</td><td>¥28.9万</td><td>28场</td><td>88%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>桂发祥十八街</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-02-28</td><td>¥7.1万</td><td>¥42.3万</td><td>42场</td><td>94%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>泥人张手作</strong></td><td><span class="tag tag-o">B方案</span></td><td>2026-04-05</td><td>¥3.2万</td><td>¥9.6万</td><td>10场</td><td>82%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>耳朵眼炸糕</strong></td><td><span class="tag tag-o">B方案</span></td><td>2026-04-10</td><td>¥2.8万</td><td>¥8.4万</td><td>8场</td><td>78%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>果仁张食品</strong></td><td><span class="tag tag-o">B方案</span></td><td>2026-04-12</td><td>¥2.1万</td><td>¥6.3万</td><td>7场</td><td>75%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津麻花联盟</strong></td><td><span class="tag tag-o">B方案</span></td><td>2026-02-15</td><td>¥4.5万</td><td>¥31.2万</td><td>24场</td><td>86%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>滨海新区海鲜</strong></td><td><span class="tag tag-b">A方案</span></td><td>2026-02-20</td><td>¥5.2万</td><td>¥36.8万</td><td>30场</td><td>91%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>蓟州农特产</strong></td><td><span class="tag tag-o">B方案</span></td><td>2026-03-08</td><td>¥1.8万</td><td>¥10.2万</td><td>9场</td><td>68%</td><td><span class="tag tag-y">一般</span></td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:12px;font-size:11px;color:var(--muted)">共 23 家品牌方 | 显示前 12 家</div>
+    </div>
+  </div>
+
+</div><!-- /tab-merchants -->
+
+<!-- ===== TAB: 直播间 ===== -->
+<div id="tab-streamers" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card g">
+      <div class="kpi-icon">🎬</div>
+      <div class="kpi-val">18</div>
+      <div class="kpi-label">引入直播间总数</div>
+    </div>
+    <div class="kpi-card b">
+      <div class="kpi-icon">👥</div>
+      <div class="kpi-val">6.8万</div>
+      <div class="kpi-label">总月均在线人数</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-val">¥67万</div>
+      <div class="kpi-label">直播间本月GMV</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥2,500+</div>
+      <div class="kpi-label">单直播间入驻提成</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">🎬 天津直播间列表</div>
+      <div class="sec-sub">入驻提成：≤1万在线2500元/家，每递增1万+2500元 | 流量消耗分润1%</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>直播间名称</th><th>月均在线</th><th>商家等级</th><th>入驻时间</th><th>本月GMV</th><th>流量消耗</th><th>直播场次</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td><strong>天津优选直播间</strong></td><td>8,200人</td><td><span class="tag tag-b">B级</span></td><td>2026-05-15</td><td>¥12.5万</td><td>¥8,200</td><td>28场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>津门好物馆</strong></td><td>12,500人</td><td><span class="tag tag-pu">A级</span></td><td>2026-03-20</td><td>¥18.6万</td><td>¥15,200</td><td>36场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>滨海直播基地</strong></td><td>5,800人</td><td><span class="tag tag-b">B级</span></td><td>2026-03-05</td><td>¥8.4万</td><td>¥6,800</td><td>24场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>老字号传承直播间</strong></td><td>3,200人</td><td><span class="tag tag-cy">C级</span></td><td>2026-02-28</td><td>¥4.2万</td><td>¥3,500</td><td>18场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津美妆荟</strong></td><td>6,100人</td><td><span class="tag tag-b">B级</span></td><td>2026-04-10</td><td>¥9.8万</td><td>¥7,600</td><td>22场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>津味美食厨房</strong></td><td>4,500人</td><td><span class="tag tag-cy">C级</span></td><td>2026-03-15</td><td>¥5.6万</td><td>¥4,200</td><td>20场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津母婴优选</strong></td><td>7,300人</td><td><span class="tag tag-b">B级</span></td><td>2026-04-18</td><td>¥10.2万</td><td>¥8,800</td><td>26场</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>蓟州特产馆</strong></td><td>1,800人</td><td><span class="tag tag-cy">C级</span></td><td>2026-04-22</td><td>¥2.1万</td><td>¥1,600</td><td>12场</td><td><span class="tag tag-y">一般</span></td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:12px;font-size:11px;color:var(--muted)">共 18 家直播间 | 显示前 8 家</div>
+    </div>
+  </div>
+
+</div><!-- /tab-streamers -->
+
+<!-- ===== TAB: 流量方 ===== -->
+<div id="tab-traffic" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card pu">
+      <div class="kpi-icon">📡</div>
+      <div class="kpi-val">12</div>
+      <div class="kpi-label">引入流量方总数</div>
+    </div>
+    <div class="kpi-card pk">
+      <div class="kpi-icon">👥</div>
+      <div class="kpi-val">8.6万</div>
+      <div class="kpi-label">总私域粉丝数</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥8,600</div>
+      <div class="kpi-label">本月流量方分润</div>
+    </div>
+    <div class="kpi-card b">
+      <div class="kpi-icon">🔄</div>
+      <div class="kpi-val">终身绑定</div>
+      <div class="kpi-label">粉丝消费0.5%永久分润</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">📡 天津流量方列表</div>
+      <div class="sec-sub">消费分润：流量方用户平台消费总额×0.5% | 终身绑定</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>流量方名称</th><th>类型</th><th>粉丝规模</th><th>入驻时间</th><th>本月消费额</th><th>累计分润</th><th>活跃度</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td><strong>天津宝妈社群联盟</strong></td><td><span class="tag tag-pk">社群</span></td><td>2.8万人</td><td>2026-05-03</td><td>¥32.4万</td><td>¥1,620</td><td>95%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>津门吃货团</strong></td><td><span class="tag tag-o">KOL</span></td><td>1.5万人</td><td>2026-04-10</td><td>¥28.6万</td><td>¥4,290</td><td>92%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津折扣情报站</strong></td><td><span class="tag tag-pk">社群</span></td><td>1.2万人</td><td>2026-03-18</td><td>¥18.2万</td><td>¥3,640</td><td>88%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>滨海生活圈</strong></td><td><span class="tag tag-b">MCN</span></td><td>0.9万人</td><td>2026-03-25</td><td>¥12.8万</td><td>¥2,560</td><td>85%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津好物分享</strong></td><td><span class="tag tag-o">KOL</span></td><td>0.6万人</td><td>2026-04-05</td><td>¥8.4万</td><td>¥1,680</td><td>82%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>南开大学校友购</strong></td><td><span class="tag tag-pk">社群</span></td><td>0.5万人</td><td>2026-04-15</td><td>¥5.6万</td><td>¥1,120</td><td>78%</td><td><span class="tag tag-g">活跃</span></td></tr>
+          <tr><td><strong>天津美妆种草群</strong></td><td><span class="tag tag-pk">社群</span></td><td>0.4万人</td><td>2026-04-20</td><td>¥3.2万</td><td>¥640</td><td>72%</td><td><span class="tag tag-y">一般</span></td></tr>
+          <tr><td><strong>武清社区团购</strong></td><td><span class="tag tag-pk">社群</span></td><td>0.7万人</td><td>2026-05-10</td><td>¥6.8万</td><td>¥340</td><td>90%</td><td><span class="tag tag-g">活跃</span></td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:12px;font-size:11px;color:var(--muted)">共 12 位流量方 | 显示前 8 位</div>
+    </div>
+  </div>
+
+</div><!-- /tab-traffic -->
+
+<!-- ===== TAB: 海外店 ===== -->
+<div id="tab-overseas" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card o">
+      <div class="kpi-icon">🌍</div>
+      <div class="kpi-val">4/5</div>
+      <div class="kpi-label">海外店（已上线/总名额）</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥12.8万</div>
+      <div class="kpi-label">海外店本月分润</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">📦</div>
+      <div class="kpi-val">¥48.6万</div>
+      <div class="kpi-label">海外店本月GMV</div>
+    </div>
+    <div class="kpi-card b">
+      <div class="kpi-icon">⏳</div>
+      <div class="kpi-val">1个</div>
+      <div class="kpi-label">待申请名额</div>
+    </div>
+  </div>
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">🌍 我的海外店</div>
+      <div class="sec-sub">每个城市合伙人最多 5 个海外店 | 全程代运营 · 零投入 · 躺赚</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px">
+        <div class="overseas-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🇺🇸 北美站</div>
+            <span class="tag tag-g">运营中</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            主营：天津老字号食品、手工艺品<br>
+            本月GMV：¥18.2万<br>
+            B2B订单：12笔 | B2C订单：386笔<br>
+            本月分润：<strong style="color:var(--g)">¥5.46万</strong>
+          </div>
+        </div>
+        <div class="overseas-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🇪🇺 欧盟站</div>
+            <span class="tag tag-g">运营中</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            主营：杨柳青文创、泥人张手作<br>
+            本月GMV：¥14.6万<br>
+            B2B订单：8笔 | B2C订单:252笔<br>
+            本月分润：<strong style="color:var(--g)">¥4.38万</strong>
+          </div>
+        </div>
+        <div class="overseas-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🇯🇵 日本站</div>
+            <span class="tag tag-g">运营中</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            主营：海河乳品、天津零食<br>
+            本月GMV：¥10.8万<br>
+            B2B订单：6笔 | B2C订单：198笔<br>
+            本月分润：<strong style="color:var(--g)">¥2.16万</strong>
+          </div>
+        </div>
+        <div class="overseas-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🇹🇭 东南亚站</div>
+            <span class="tag tag-y">选品中</span>
+          </div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            主营：待定（平台代运营选品中）<br>
+            预计上线：2026-06-01<br>
+            目标品类：食品、日用品<br>
+            预计月分润：<strong style="color:var(--o)">¥0.8万</strong>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02);border:2px dashed var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:140px;cursor:pointer" onclick="alert('海外店申请通道已开放，请联系专属运营经理李明提交申请')">
+          <div style="font-size:32px;margin-bottom:8px">➕</div>
+          <div style="font-size:13px;color:var(--muted)">申请第5个海外店名额</div>
+          <div style="font-size:10px;color:var(--y);margin-top:4px">推荐市场：🇰🇷韩国 / 🇦🇺澳洲</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 海外店收益说明 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">📋 海外店代运营模式说明</div>
+    </div>
+    <div class="sec-body">
+      <div class="grid-2">
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--g)">✅ 平台全流程代运营</div>
+          <div style="font-size:12px;line-height:2;color:var(--muted)">
+            ✅ 店铺注册、资质审核、装修<br>
+            ✅ 选品上架、日常运营、投流推广<br>
+            ✅ 订单处理、物流配送、售后<br>
+            ✅ 合规申报、税务处理<br>
+            ✅ <strong style="color:var(--g)">零投入、零精力，月对账确认</strong>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--o)">💰 4重收益来源</div>
+          <div style="font-size:12px;line-height:2;color:var(--muted)">
+            💰 商品销售利润分成<br>
+            💰 海外分销渠道差价收益<br>
+            💰 品牌授权溢价收益<br>
+            💰 B2B批量采购 + B2C零售订单分成<br>
+            📊 <strong style="color:var(--o)">风险共担：代运营费与业绩挂钩</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-overseas -->
+
+<!-- ===== TAB: 我的收益 ===== -->
+<div id="tab-revenue" style="display:none">
+
+  <div class="kpi" style="margin-bottom:20px">
+    <div class="kpi-card b">
+      <div class="kpi-icon">💰</div>
+      <div class="kpi-val">¥9.8万</div>
+      <div class="kpi-label">本月总收益</div>
+      <div class="kpi-trend up">↑ 较上月+23%</div>
+    </div>
+    <div class="kpi-card g">
+      <div class="kpi-icon">📊</div>
+      <div class="kpi-val">¥38.6万</div>
+      <div class="kpi-label">累计总收益</div>
+    </div>
+    <div class="kpi-card pu">
+      <div class="kpi-icon">🏦</div>
+      <div class="kpi-val">¥7.96万</div>
+      <div class="kpi-label">4月已到账</div>
+    </div>
+    <div class="kpi-card o">
+      <div class="kpi-icon">⏳</div>
+      <div class="kpi-val">¥9.8万</div>
+      <div class="kpi-label">本月待结算</div>
+    </div>
+  </div>
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">💰 收益明细（2026年5月）</div>
+      <div class="sec-sub">结算周期：月结，次月15日前到账</div>
+    </div>
+    <div class="sec-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>日期</th><th>类型</th><th>来源</th><th>金额</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td>2026-05-18</td><td><span class="tag tag-b">品牌方入驻</span></td><td>津味食品 A方案</td><td><strong style="color:var(--g)">+¥2,000</strong></td><td>入驻提成</td></tr>
+          <tr><td>2026-05-18</td><td><span class="tag tag-b">品牌方GMV</span></td><td>津味食品首月GMV</td><td><strong style="color:var(--g)">+¥640</strong></td><td>GMV×0.5%</td></tr>
+          <tr><td>2026-05-15</td><td><span class="tag tag-g">直播间入驻</span></td><td>天津优选直播间</td><td><strong style="color:var(--g)">+¥2,500</strong></td><td>≤1万在线</td></tr>
+          <tr><td>2026-05-12</td><td><span class="tag tag-o">海外店分润</span></td><td>北美站4月结算</td><td><strong style="color:var(--g)">+¥5,460</strong></td><td>销售分成</td></tr>
+          <tr><td>2026-05-12</td><td><span class="tag tag-o">海外店分润</span></td><td>欧盟站4月结算</td><td><strong style="color:var(--g)">+¥4,380</strong></td><td>销售分成</td></tr>
+          <tr><td>2026-05-10</td><td><span class="tag tag-pk">流量方分润</span></td><td>武清社区团购消费</td><td><strong style="color:var(--g)">+¥340</strong></td><td>消费额×0.5%</td></tr>
+          <tr><td>2026-05-08</td><td><span class="tag tag-pu">广告收益</span></td><td>天津开屏广告位招商</td><td><strong style="color:var(--g)">+¥5,600</strong></td><td>广告位100%归属</td></tr>
+          <tr><td>2026-05-05</td><td><span class="tag tag-cy">投流转化</span></td><td>抖音投流转化3家品牌方</td><td><strong style="color:var(--g)">+¥2,500</strong></td><td>转化分润</td></tr>
+          <tr><td>2026-05-03</td><td><span class="tag tag-pk">流量方分润</span></td><td>天津宝妈社群消费</td><td><strong style="color:var(--g)">+¥1,620</strong></td><td>消费额×0.5%</td></tr>
+          <tr><td>2026-05-01</td><td><span class="tag tag-o">海外店分润</span></td><td>日本站4月结算</td><td><strong style="color:var(--g)">+¥2,160</strong></td><td>销售分成</td></tr>
+        </tbody>
+      </table>
+      <div style="text-align:center;padding:12px;font-size:11px;color:var(--muted)">5月收益汇总：¥98,000 | 显示最近 10 笔</div>
+    </div>
+  </div>
+
+  <!-- 历月收益趋势 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">📈 月度收益趋势</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <div style="background:rgba(255,255,255,0.02);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:11px;color:var(--muted)">2月（首月）</div>
+          <div style="font-size:18px;font-weight:900;margin-top:4px">¥3.2万</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:11px;color:var(--muted)">3月</div>
+          <div style="font-size:18px;font-weight:900;margin-top:4px">¥5.8万</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.02);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:11px;color:var(--muted)">4月</div>
+          <div style="font-size:18px;font-weight:900;margin-top:4px">¥7.96万</div>
+        </div>
+        <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:11px;color:var(--b)">5月（进行中）</div>
+          <div style="font-size:18px;font-weight:900;margin-top:4px;color:var(--g)">¥9.8万</div>
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">累计收益增长</div>
+        <div class="progress-bar" style="height:8px">
+          <div class="progress-fill" style="width:72%;background:linear-gradient(90deg,var(--b),var(--g))"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:4px"><span>¥0</span><span>目标 ¥50万/年（已完成 77%）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提现信息 -->
+  <div class="section" style="margin-top:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">🏦 提现信息</div>
+    </div>
+    <div class="sec-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">结算账户</div>
+          <div class="info-val" style="font-size:12px">天津岁月新剧场文化传播有限公司</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">银行账户</div>
+          <div class="info-val" style="font-size:12px">工商银行天津南开支行 ****8862</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">实名认证</div>
+          <div class="info-val"><span class="tag tag-g">✅ 已认证</span></div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">提现规则</div>
+          <div class="info-val" style="font-size:12px">月结·次月15日前到账·最低100元</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-revenue -->
+
+<!-- ===== TAB: 考核进度 ===== -->
+<div id="tab-kpi" style="display:none">
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">📈 2026 Q2 考核进度</div>
+      <div class="sec-sub">当前状态：<span class="tag tag-b" style="font-size:11px">✅ 达标</span> | 首季度保护期内</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;gap:16px">
+        <!-- 品牌方 -->
+        <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:12px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🏷️ 品牌方引入</div>
+            <div style="font-size:24px;font-weight:900;color:var(--g)">23 / 5家</div>
+          </div>
+          <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:100%;background:var(--g)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px">
+            <span>预警线≥3家 ✅ | 达标线≥5家 ✅ | 优秀线≥10家 ✅</span>
+            <span style="color:var(--g);font-weight:700">超额完成 460%</span>
+          </div>
+        </div>
+        <!-- 直播间 -->
+        <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:12px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🎬 直播间引入</div>
+            <div style="font-size:24px;font-weight:900;color:var(--g)">18 / 5家</div>
+          </div>
+          <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:100%;background:var(--g)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px">
+            <span>预警线≥3家 ✅ | 达标线≥5家 ✅ | 优秀线≥10家 ✅</span>
+            <span style="color:var(--g);font-weight:700">超额完成 360%</span>
+          </div>
+        </div>
+        <!-- 流量方 -->
+        <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">📡 流量方引入</div>
+            <div style="font-size:24px;font-weight:900;color:var(--g)">12 / 3家</div>
+          </div>
+          <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:100%;background:var(--b)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px">
+            <span>预警线≥1家 ✅ | 达标线≥3家 ✅ | 优秀线≥5家 ✅</span>
+            <span style="color:var(--g);font-weight:700">超额完成 400%</span>
+          </div>
+        </div>
+        <!-- 海外店 -->
+        <div style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:14px;font-weight:700">🌍 海外店运营</div>
+            <div style="font-size:24px;font-weight:900;color:var(--y)">4 / 5个</div>
+          </div>
+          <div class="progress-bar" style="height:8px"><div class="progress-fill" style="width:80%;background:var(--y)"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:6px">
+            <span>已启动 ✅ | 1个名额待申请</span>
+            <span style="color:var(--o)">完成 80%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 升级路径 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">🚀 升级路径</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:flex;align-items:center;gap:0;flex-wrap:wrap">
+        <div style="background:rgba(52,211,153,0.1);border:2px solid var(--g);border-radius:12px;padding:16px;text-align:center;min-width:180px">
+          <div style="font-size:11px;color:var(--muted)">✅ 已完成</div>
+          <div style="font-size:14px;font-weight:700;margin-top:4px">城市代理商</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">基础等级</div>
+        </div>
+        <div style="font-size:24px;color:var(--b);padding:0 8px">→</div>
+        <div style="background:rgba(56,189,248,0.15);border:2px solid var(--b);border-radius:12px;padding:16px;text-align:center;min-width:180px">
+          <div style="font-size:11px;color:var(--b)">📍 当前等级</div>
+          <div style="font-size:14px;font-weight:700;margin-top:4px">核心合作商</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">分润上浮5%</div>
+        </div>
+        <div style="font-size:24px;color:var(--pu);padding:0 8px">→</div>
+        <div style="background:rgba(167,139,250,0.05);border:2px dashed var(--pu);border-radius:12px;padding:16px;text-align:center;min-width:180px">
+          <div style="font-size:11px;color:var(--pu)">🎯 下一目标</div>
+          <div style="font-size:14px;font-weight:700;margin-top:4px">战略合作商</div>
+          <div style="font-size:10px;color:var(--muted);margin-top:4px">跨城协同+期权激励</div>
+        </div>
+      </div>
+      <div style="margin-top:16px;font-size:12px;color:var(--muted);line-height:1.8">
+        <strong style="color:var(--tx)">升级条件：</strong>连续2季度优秀 → 核心合作商 → 联合背书+流量补贴共享+分润上浮5% → 年度城市冠军或海外拓展达标 → 城市战略合作商 → 跨城协同授权+期权激励+年度颁奖出席
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-kpi -->
+
+<!-- ===== TAB: 平台资源 ===== -->
+<div id="tab-resources" style="display:none">
+
+  <div class="section" style="margin-bottom:20px">
+    <div class="sec-hd">
+      <div class="sec-tit">🛠️ 平台赋能资源</div>
+      <div class="sec-sub">城市合伙人专属支持</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px">
+        <!-- 合规保障 -->
+        <div style="background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:12px;padding:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--b);margin-bottom:10px">🛡️ 合规保障</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            ✅ 四星全牌照+视听节目许可证<br>
+            ✅ 国企合规收款通道<br>
+            ✅ 零封号风险<br>
+            ✅ 税务规范指导<br>
+            ✅ 海外贸易合规指导
+          </div>
+        </div>
+        <!-- 供应链 -->
+        <div style="background:rgba(52,211,153,0.05);border:1px solid rgba(52,211,153,0.15);border-radius:12px;padding:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--g);margin-bottom:10px">📦 核武级供应链</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            ✅ 5000+品牌核心供应链库<br>
+            ✅ 源头直供、出厂价优势<br>
+            ✅ 全平台直播间/品牌方对接<br>
+            ✅ 专业成交师+运营+招商团队<br>
+            ✅ 1V1促单、运营指导
+          </div>
+        </div>
+        <!-- 曝光引流 -->
+        <div style="background:rgba(251,146,60,0.05);border:1px solid rgba(251,146,60,0.15);border-radius:12px;padding:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--o);margin-bottom:10px">📢 曝光引流</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            ✅ 天津开屏/弹窗/banner广告位<br>
+            ✅ 广告招商收益<strong>100%归属</strong><br>
+            ✅ 区域广告执行分润<br>
+            ✅ 抖音公域精准投流<br>
+            ✅ 投流客户转介绍
+          </div>
+        </div>
+        <!-- 物料支持 -->
+        <div style="background:rgba(167,139,250,0.05);border:1px solid rgba(167,139,250,0.15);border-radius:12px;padding:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--pu);margin-bottom:10px">🎨 物料+培训</div>
+          <div style="font-size:12px;color:var(--muted);line-height:1.8">
+            ✅ 天津定制化推广物料<br>
+            ✅ 品牌方/直播间/流量方招募手册<br>
+            ✅ 城市合伙人专属授权函<br>
+            ✅ 线上培训课程（30天完成）<br>
+            ✅ 1v1运营陪跑
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 运营经理信息 -->
+  <div class="section">
+    <div class="sec-hd">
+      <div class="sec-tit">👨‍💼 专属运营经理</div>
+    </div>
+    <div class="sec-body">
+      <div style="display:flex;gap:16px;align-items:center">
+        <div style="width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--b),var(--g));display:flex;align-items:center;justify-content:center;font-size:24px">👨‍💼</div>
+        <div style="flex:1">
+          <div style="font-size:15px;font-weight:700">李明</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px">天津城市合伙人专属运营经理 | 响应时限：24小时</div>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button class="btn btn-pri" style="padding:5px 12px;font-size:11px">💬 发消息</button>
+            <button class="btn" style="padding:5px 12px;font-size:11px">📞 预约通话</button>
+          </div>
+        </div>
+        <div style="text-align:right;font-size:11px;color:var(--muted)">
+          <div>本月已响应：18次</div>
+          <div>平均响应时长：2.3小时</div>
+          <div style="color:var(--g);margin-top:4px">满意度：4.8/5.0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /tab-resources -->
+
+</div><!-- /main -->
+
+<script>
+function switchTab(tabId,el){
+  document.querySelectorAll('[id^=tab-]').forEach(function(p){p.style.display='none'});
+  document.querySelectorAll('.nav-item').forEach(function(n){n.classList.remove('on')});
+  var tab=document.getElementById('tab-'+tabId);
+  if(tab)tab.style.display='block';
+  if(el)el.classList.add('on');
+}
+switchTab('dashboard',document.querySelector('.nav-item'));
+</script>
+
+</body>
+</html>
