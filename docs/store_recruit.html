@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>全犀生态 · 本地服务商招募</title>
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--tx:#f1f5f9;--muted:#94a3b8;--b:#38bdf8;--pu:#a78bfa;--g:#34d399;--o:#fb923c;--pk:#f472b6;--y:#fbbf24;--r:#f87171;--cy:#22d3ee}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);min-height:100vh}
+.header{background:linear-gradient(135deg,#0f2a4a 0%,#0a1f38 100%);border-bottom:1px solid var(--border);padding:0 24px;height:64px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}
+.logo{width:40px;height:40px;background:linear-gradient(135deg,var(--b),var(--pu));border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:18px;color:#fff}
+.title-wrap{flex:1}
+.title{font-size:16px;font-weight:700}
+.subtitle{font-size:11px;color:var(--muted);margin-top:2px}
+.nav{background:var(--card);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:0;overflow-x:auto}
+.nav-item{padding:14px 18px;font-size:13px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all 0.2s}
+.nav-item.on{color:var(--b);border-bottom-color:var(--b);font-weight:600}
+.main{padding:20px 24px;max-width:1440px;margin:0 auto}
+.hero{background:linear-gradient(135deg,#0a1f38 0%,#0f2a4a 50%,#1a0f3a 100%);border:1px solid var(--border);border-radius:18px;padding:40px 36px;text-align:center;margin-bottom:24px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(56,189,248,0.04) 0%,transparent 60%);pointer-events:none}
+.hero-badge{display:inline-block;background:rgba(251,146,60,0.15);border:1px solid rgba(251,146,60,0.3);color:var(--o);padding:4px 14px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:16px}
+.hero h1{font-size:32px;font-weight:900;margin-bottom:10px;background:linear-gradient(135deg,#fff 0%,var(--b) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:15px;color:var(--muted);max-width:600px;margin:0 auto 28px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-bottom:32px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-val{font-size:28px;font-weight:900;color:var(--b)}
+.hero-stat-label{font-size:11px;color:var(--muted);margin-top:2px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn{background:rgba(56,189,248,0.12);border:1px solid rgba(56,189,248,0.3);color:var(--b);padding:10px 24px;border-radius:10px;font-size:14px;cursor:pointer;font-weight:600;transition:all 0.2s;text-decoration:none;display:inline-block;text-align:center}
+.btn-pri{background:linear-gradient(135deg,var(--b),var(--pu));border:none;color:#fff}
+.btn-pri:hover{opacity:0.9;transform:translateY(-1px)}
+.section{background:var(--card);border:1px solid var(--border);border-radius:14px;margin-bottom:20px;overflow:hidden}
+.sec-hd{padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px}
+.sec-icon{font-size:20px}
+.sec-tit{font-size:15px;font-weight:700;flex:1}
+.sec-badge{background:rgba(56,189,248,0.1);color:var(--b);padding:3px 10px;border-radius:8px;font-size:11px;font-weight:600}
+.sec-body{padding:20px 24px}
+.section-title{font-size:22px;font-weight:800;text-align:center;margin-bottom:8px}
+.section-desc{text-align:center;color:var(--muted);font-size:13px;margin-bottom:24px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.card.b::before{background:var(--b)}.card.g::before{background:var(--g)}.card.o::before{background:var(--o)}.card.pu::before{background:var(--pu)}.card.pk::before{background:var(--pk)}.card.cy::before{background:var(--cy)}.card.y::before{background:var(--y)}.card.r::before{background:var(--r)}
+.card-icon{font-size:28px;margin-bottom:10px}
+.card-tit{font-size:14px;font-weight:700;margin-bottom:6px}
+.card-txt{font-size:12px;color:var(--muted);line-height:1.6}
+.tag{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:600}
+.tag-g{background:rgba(52,211,153,0.12);color:var(--g)}.tag-b{background:rgba(56,189,248,0.12);color:var(--b)}.tag-o{background:rgba(251,146,60,0.12);color:var(--o)}.tag-r{background:rgba(248,113,113,0.12);color:var(--r)}.tag-pu{background:rgba(167,139,250,0.12);color:var(--pu)}.tag-y{background:rgba(251,191,36,0.12);color:var(--y)}.tag-cy{background:rgba(34,211,238,0.12);color:var(--cy)}
+.compare-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.compare-table thead th{text-align:left;padding:12px 14px;color:var(--muted);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border);background:var(--bg)}
+.compare-table tbody td{padding:11px 14px;border-bottom:1px solid rgba(51,65,85,0.3);vertical-align:middle}
+.compare-table tbody tr:hover td{background:rgba(56,189,248,0.03)}
+.compare-table tbody tr:last-child td{border-bottom:none}
+.plan-badge{display:inline-block;padding:3px 10px;border-radius:8px;font-size:11px;font-weight:700}
+.plan-core{background:linear-gradient(135deg,var(--o),var(--pk));color:#fff}
+.plan-adv{background:linear-gradient(135deg,var(--b),var(--pu));color:#fff}
+.plan-base{background:rgba(148,163,184,0.15);color:var(--muted)}
+.check{color:var(--g);font-size:14px}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.info-item{padding:12px 16px;background:rgba(255,255,255,0.02);border-radius:10px}
+.info-label{font-size:10px;color:var(--muted)}
+.info-val{font-size:14px;font-weight:700;margin-top:3px;color:var(--b)}
+.step{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+.step-num{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;flex-shrink:0}
+.step-content{flex:1}
+.step-tit{font-size:14px;font-weight:700;margin-bottom:4px}
+.step-desc{font-size:12px;color:var(--muted);line-height:1.6}
+.footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:12px;border-top:1px solid var(--border);margin-top:20px}
+.footer-cta{background:linear-gradient(135deg,#0f2a4a 0%,#1a0f3a 100%);border:1px solid var(--border);border-radius:16px;padding:40px 24px;margin-bottom:30px;text-align:center}
+.footer h2{font-size:22px;font-weight:900;margin-bottom:8px}
+.footer p{color:var(--muted);font-size:13px;margin-bottom:20px}
+@media(max-width:768px){.grid-3{grid-template-columns:1fr}.grid-4{grid-template-columns:1fr 1fr}.grid-2{grid-template-columns:1fr}.hero-stats{gap:24px}.hero h1{font-size:24px}.info-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">全</div>
+  <div class="title-wrap">
+    <div class="title">全犀生态 · 本地服务商招募</div>
+    <div class="subtitle">携手共赢，掘金万亿本地生活市场</div>
+  </div>
+  <div style="display:flex;gap:8px;margin-left:auto;flex-shrink:0">
+    <span class="tag tag-g" style="font-size:11px">🔥 全国火热招募中</span>
+  </div>
+</div>
+
+<div class="main">
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🏆 国企级资源平台 · 合规稳健</div>
+  <h1>全犀生态 · 本地服务商招募</h1>
+  <p class="hero-desc">加入全犀生态，成为本地生活市场的事业合伙人。零元入驻、国企背书、全链路赋能，携手掘金万亿级本地生活赛道。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-val">3.89万亿</div><div class="hero-stat-label">2025年市场规模</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">近6万亿</div><div class="hero-stat-label">2028年预计规模</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">30.8%</div><div class="hero-stat-label">线上渗透率</div></div>
+    <div class="hero-stat"><div class="hero-stat-val">0元</div><div class="hero-stat-label">入驻费</div></div>
+  </div>
+  <div class="hero-cta">
+    <a href="#join" class="btn btn-pri">立即申请加入 →</a>
+    <a href="#plans" class="btn">查看合作方案</a>
+  </div>
+</div>
+
+<!-- 市场机遇 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">📈</span><span class="sec-tit">时代机遇 · 万亿级赛道正在爆发</span></div>
+  <div class="sec-body">
+    <div class="grid-3">
+      <div class="card b">
+        <div class="card-icon">📊</div>
+        <div class="card-tit">市场规模持续扩张</div>
+        <div class="card-txt">2025年本地生活市场规模达3.89万亿元，预计2028年将突破近6万亿元，成为核心高增长赛道。</div>
+      </div>
+      <div class="card pu">
+        <div class="card-icon">📱</div>
+        <div class="card-tit">线上化渗透率稳步提升</div>
+        <div class="card-txt">2025年线上渗透率预计达30.8%。"在线决策、线下体验"已成主流消费模式。</div>
+      </div>
+      <div class="card o">
+        <div class="card-icon">🎯</div>
+        <div class="card-tit">消费习惯根本性变革</div>
+        <div class="card-txt">消费者通过抖音、小红书等平台提前了解、比较和决策，本地商家必须拥抱全域流量。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 商家痛点 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">⚠️</span><span class="sec-tit">商家之困 · 传统模式的三大瓶颈</span><span class="tag tag-r">亟需破局</span></div>
+  <div class="sec-body">
+    <div class="grid-3">
+      <div class="card r">
+        <div class="card-icon">💸</div>
+        <div class="card-tit">获客成本高昂</div>
+        <div class="card-txt">传统平台佣金高达15%-20%，严重挤压利润。商家陷入"不投流等死，投流找死"的两难境地。</div>
+        <div style="margin-top:10px"><span class="tag tag-r">佣金 15%-20%</span></div>
+      </div>
+      <div class="card y">
+        <div class="card-icon">🔄</div>
+        <div class="card-tit">复购率低、粘性差</div>
+        <div class="card-txt">缺乏有效的用户沉淀和运营手段。交易结束即失联，用户流失率高，难以建立持续营收。</div>
+        <div style="margin-top:10px"><span class="tag tag-y">用户流失率高</span></div>
+      </div>
+      <div class="card pk">
+        <div class="card-icon">🛡️</div>
+        <div class="card-tit">盈利渠道单一</div>
+        <div class="card-txt">过度依赖到店消费，缺乏增值服务。市场波动时抗风险能力弱，缺乏多元化变现能力。</div>
+        <div style="margin-top:10px"><span class="tag tag-pu">抗风险能力弱</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 全犀优势 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">🌟</span><span class="sec-tit">全犀生态 · 四大优势构筑坚实护城河</span></div>
+  <div class="sec-body">
+    <div class="grid-4">
+      <div class="card g">
+        <div class="card-icon">🏛️</div>
+        <div class="card-tit">合规兜底</div>
+        <div class="card-txt">国企背景，四星全牌照+视听节目许可证+国企合规收款，资金安全有保障，完全合规无风险。</div>
+      </div>
+      <div class="card b">
+        <div class="card-icon">🏡</div>
+        <div class="card-tit">本地适配</div>
+        <div class="card-txt">拒绝空中楼阁，所有产品与方案聚焦本地真实消费场景，高落地性，无需复杂技术门槛。</div>
+      </div>
+      <div class="card pu">
+        <div class="card-icon">🔗</div>
+        <div class="card-tit">全链路赋能</div>
+        <div class="card-txt">公域搭建+私域运营+直播带货+广告投放+线下活动策划，总部全程指导，新手也能快速起量。</div>
+      </div>
+      <div class="card o">
+        <div class="card-icon">🚀</div>
+        <div class="card-tit">轻资高效</div>
+        <div class="card-txt">零囤货压力，低成本启动，依托成熟商业模式快速打通变现链路，实现盈利目标。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 服务商权益 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">🎁</span><span class="sec-tit">服务商权益 · 一站式落地解决方案</span><span class="sec-badge">5大核心权益</span></div>
+  <div class="sec-body">
+    <div class="grid-2" style="gap:16px">
+      <div class="card b">
+        <div class="card-icon">📦</div>
+        <div class="card-tit">货品与供应链支持</div>
+        <div class="card-txt">优化产品结构，打造核心服务竞争力。开放全犀生态核心供应链库，涵盖本地特产、生活好物等全品类资源。</div>
+      </div>
+      <div class="card pu">
+        <div class="card-icon">✏️</div>
+        <div class="card-tit">内容创作与策划</div>
+        <div class="card-txt">专业团队指导产出种草内容，快速建立声量。协助搭建抖音/小红书账号并教会商家公域直播。</div>
+      </div>
+      <div class="card o">
+        <div class="card-icon">📣</div>
+        <div class="card-tit">全域营销活动策划</div>
+        <div class="card-txt">结合公私域节点，定制方案精准触达客群。精准曝光，高效引流，显著提升门店营收。</div>
+      </div>
+      <div class="card g">
+        <div class="card-icon">🔧</div>
+        <div class="card-tit">全流程运营支持</div>
+        <div class="card-txt">全周期指导，提升运营效率与口碑。量身定制门店营销策略，实现线下门店转化最大化。</div>
+      </div>
+      <div class="card cy" style="grid-column:1/-1">
+        <div class="card-icon">📊</div>
+        <div class="card-tit">数字化经营工具 · 免费使用</div>
+        <div class="card-txt" style="margin-bottom:12px">专属后台实时同步销量、核销、曝光、收益等核心数据，数据清晰一目了然。便捷核销功能操作简单，大幅提升到店消费体验和整体运营效率。</div>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">实时数据同步</div><div class="info-val">秒级更新</div></div>
+          <div class="info-item"><div class="info-label">便捷核销</div><div class="info-val">一步到店</div></div>
+          <div class="info-item"><div class="info-label">供应链库</div><div class="info-val">全品类开放</div></div>
+          <div class="info-item"><div class="info-label">私域直播</div><div class="info-val">每月2-3次</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 三档合作方案 -->
+<div id="plans" class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">📋</span><span class="sec-tit">合作模式 · 三档方案灵活选择</span><span class="tag tag-b">0元入驻</span></div>
+  <div class="sec-body" style="overflow-x:auto">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="min-width:120px">权益项</th>
+          <th style="min-width:140px;text-align:center"><span class="plan-badge plan-core">🔥 核心级</span></th>
+          <th style="min-width:140px;text-align:center"><span class="plan-badge plan-adv">✨ 进阶级</span></th>
+          <th style="min-width:140px;text-align:center"><span class="plan-badge plan-base">⬜ 基础级</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><b>平台入驻</b></td><td style="text-align:center"><span class="check">✅</span> 零元入驻+保证金</td><td style="text-align:center"><span class="check">✅</span> 零元入驻+保证金</td><td style="text-align:center"><span class="check">✅</span> 零元入驻+保证金</td></tr>
+        <tr><td><b>广告矩阵</b></td><td style="text-align:center"><b>开屏广告+直播植入+全域推送</b></td><td style="text-align:center">首页弹窗+直播间置顶（曝光+50%）</td><td style="text-align:center">商城推荐位+社群广告+弹幕植入</td></tr>
+        <tr><td><b>精准私域直播</b></td><td style="text-align:center"><b>每月 3 次</b>（定制主题）</td><td style="text-align:center"><b>每月 3 次</b>（匹配直播间）</td><td style="text-align:center">每月 2 次</td></tr>
+        <tr><td><b>公域搭建</b></td><td style="text-align:center"><span class="check">✅</span> 抖音/小红书全程指导</td><td style="text-align:center"><span class="check">✅</span> 抖音/小红书全程指导</td><td style="text-align:center"><span class="check">✅</span> 抖音/小红书全程指导</td></tr>
+        <tr><td><b>门店赋能</b></td><td style="text-align:center"><span class="check">✅</span> 专业团队定制方案</td><td style="text-align:center"><span class="check">✅</span> 专业团队定制方案</td><td style="text-align:center">—</td></tr>
+        <tr><td><b>供应链库开放</b></td><td style="text-align:center"><span class="check">✅</span> 全品类资源</td><td style="text-align:center"><span class="check">✅</span> 全品类资源</td><td style="text-align:center"><span class="check">✅</span> 全品类资源</td></tr>
+        <tr><td><b>线下活动引流</b></td><td style="text-align:center"><span class="check">✅</span> 专题沙龙+市集策划</td><td style="text-align:center">—</td><td style="text-align:center">—</td></tr>
+        <tr><td><b>数据后台</b></td><td style="text-align:center"><span class="check">✅</span> 专属后台+实时同步</td><td style="text-align:center"><span class="check">✅</span> 专属后台+实时同步</td><td style="text-align:center"><span class="check">✅</span> 专属后台+实时同步</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;padding:14px 18px;background:rgba(56,189,248,0.05);border:1px solid rgba(56,189,248,0.15);border-radius:10px;font-size:12px">
+      <b style="color:var(--b)">📌 保证金说明：</b><span style="color:var(--muted)">各档保证金金额请咨询招商顾问，根据区域和品类评估后确定。平台承诺：后台数据公开透明，分润清晰可查。</span>
+    </div>
+  </div>
+</div>
+
+<!-- 成功路径 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">🛤️</span><span class="sec-tit">成功路径 · 从0到1的实战指南</span></div>
+  <div class="sec-body">
+    <div class="grid-2">
+      <div>
+        <div class="step">
+          <div class="step-num" style="background:rgba(56,189,248,0.15);color:var(--b)">1</div>
+          <div class="step-content">
+            <div class="step-tit">市场定位 · 精准切入点</div>
+            <div class="step-desc">三级漏斗模型：城市筛选 → 区域筛选 → 点位筛选，层层递进锁定目标区域。结合本地消费特征找到最容易突破的赛道。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:rgba(167,139,250,0.15);color:var(--pu)">2</div>
+          <div class="step-content">
+            <div class="step-tit">品类选择 · 黄金法则</div>
+            <div class="step-desc">聚焦高频消费、高毛利、低服务难度的品类起步，降低试错成本。总部提供品类优化方案与供应链支持。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:rgba(251,146,60,0.15);color:var(--o)">3</div>
+          <div class="step-content">
+            <div class="step-tit">三域联动 · 公私域+门店</div>
+            <div class="step-desc">公域（抖音/小红书）引流 → 私域（全犀平台）沉淀 → 门店转化，总部全程指导运营，流量最大化。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:rgba(52,211,153,0.15);color:var(--g)">4</div>
+          <div class="step-content">
+            <div class="step-tit">口碑裂变 · 持续增长</div>
+            <div class="step-desc">以优质服务打造极致体验，让客户主动成为口碑传播者。公域私域联动分享，形成双重叠加效应。</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding:20px;background:rgba(0,0,0,0.2);border-radius:12px">
+        <div style="font-size:14px;font-weight:700;margin-bottom:16px;color:var(--b)">📊 服务商核心能力</div>
+        <div class="info-grid">
+          <div class="info-item"><div class="info-label">专属后台开通</div><div class="info-val">实时同步</div></div>
+          <div class="info-item"><div class="info-label">核销功能</div><div class="info-val">一键操作</div></div>
+          <div class="info-item"><div class="info-label">供应链库</div><div class="info-val">全品类</div></div>
+          <div class="info-item"><div class="info-label">私域直播</div><div class="info-val">每月2-3次</div></div>
+          <div class="info-item"><div class="info-label">广告矩阵</div><div class="info-val">全域覆盖</div></div>
+          <div class="info-item"><div class="info-label">运营培训</div><div class="info-val">全程指导</div></div>
+        </div>
+        <div style="margin-top:16px;padding:12px;background:rgba(251,146,60,0.08);border-radius:8px;border-left:3px solid var(--o)">
+          <div style="font-size:12px;color:var(--muted)">全链路资源整合：连接消费者、商家、服务商和供应链，打通上下游壁垒。价值共创、利益共享，共建可持续发展的良性商业闭环。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 全国数据 -->
+<div class="section" style="margin-bottom:24px">
+  <div class="sec-hd"><span class="sec-icon">🌍</span><span class="sec-tit">全国布局 · 服务商网络</span><span class="tag tag-g">持续扩张中</span></div>
+  <div class="sec-body">
+    <div class="grid-4">
+      <div class="card b">
+        <div class="card-icon">🏙️</div>
+        <div class="card-tit" style="font-size:20px;font-weight:900;text-align:center;color:var(--b)">23</div>
+        <div class="card-txt" style="text-align:center">已入驻城市</div>
+      </div>
+      <div class="card g">
+        <div class="card-icon">🏪</div>
+        <div class="card-tit" style="font-size:20px;font-weight:900;text-align:center;color:var(--g)">156+</div>
+        <div class="card-txt" style="text-align:center">服务商入驻</div>
+      </div>
+      <div class="card pu">
+        <div class="card-icon">📍</div>
+        <div class="card-tit" style="font-size:20px;font-weight:900;text-align:center;color:var(--pu)">892</div>
+        <div class="card-txt" style="text-align:center">合作商家</div>
+      </div>
+      <div class="card o">
+        <div class="card-icon">💰</div>
+        <div class="card-tit" style="font-size:20px;font-weight:900;text-align:center;color:var(--o)">3,280万</div>
+        <div class="card-txt" style="text-align:center">累计GMV</div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--muted);text-align:center">数据来源：全犀平台运营数据中心（截至2026年Q1）</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div id="join" class="footer-cta">
+  <h2>🚀 立即加入全犀生态</h2>
+  <p>携手共赢，掘金万亿本地生活市场，成为本地服务事业合伙人</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+    <a href="#" class="btn btn-pri" style="font-size:16px;padding:12px 32px">📩 立即申请加入</a>
+    <a href="#" class="btn" style="font-size:16px;padding:12px 32px">📞 联系招商顾问</a>
+  </div>
+  <div style="margin-top:20px;font-size:12px;color:var(--muted)">
+    咨询时间：周一至周五 9:00-18:00 | 招商热线：400-XXX-XXXX
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2026 全犀生态 · 国企级本地生活服务平台</p>
+  <p style="margin-top:6px">四星全牌照 | 视听节目许可证 | 国企合规收款 | 数据安全有保障</p>
+</div>
+
+</div>
+</body>
+</html>
